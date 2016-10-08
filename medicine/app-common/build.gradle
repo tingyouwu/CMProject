@@ -48,4 +48,10 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     //拼音
     compile 'com.github.stuxuhai:jpinyin:1.1.7'
+    //menudialog
+    compile 'com.orhanobut:dialogplus:1.11@aar'
+    compile 'com.facebook.rebound:rebound:0.3.8'
+    //缩放图片控件
+    compile 'com.commit451:PhotoView:1.2.4'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
 }
