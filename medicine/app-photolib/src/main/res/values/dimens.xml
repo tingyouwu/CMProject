@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="gudieview_width">6dp</dimen>
+    <dimen name="gudieview_heigh">6dp</dimen>
+    <dimen name="bar_height">40dp</dimen>
+</resources>

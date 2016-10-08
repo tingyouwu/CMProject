@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">app-photolib</string>
+    <string name="preview_num">Preview(%1$s)</string>
+    <string name="done_num">Done(%1$s/%2$s)</string>
+    <string name="done">Done</string>
+    <string name="preview">Preview</string>
+    <string name="num_postfix">%1$s</string>
+    <string name="message_max_num">Up to %1$s photos can be selected</string>
 </resources>
