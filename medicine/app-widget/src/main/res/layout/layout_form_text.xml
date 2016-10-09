@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_white"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/form_text_edittext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_white"
+        android:ellipsize="end"
+        android:gravity="top"
+        android:hint="请输入名字"
+        android:imeOptions="actionDone"
+        android:maxWidth="100dip"
+        android:minHeight="45dip"
+        android:paddingBottom="8dip"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dip"
+        android:paddingTop="13dip"
+        android:singleLine="false"
+        android:textColor="@color/black"
+
+        android:textSize="14dip" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/form_text_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_white"
+        android:ellipsize="end"
+        android:gravity="left|center_vertical"
+        android:maxWidth="100dip"
+        android:minHeight="45dip"
+        android:paddingBottom="5dip"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dip"
+        android:paddingTop="5dip"
+        android:textColor="@color/black"
+        android:textSize="14dip" />
+
+</LinearLayout>

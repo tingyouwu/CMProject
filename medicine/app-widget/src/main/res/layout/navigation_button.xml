@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation_btn_root"
+    android:layout_width="wrap_content"
+    android:minWidth="50dp"
+    android:layout_height="fill_parent"
+    android:layout_centerVertical="true"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/navigation_btn_img"
+        android:layout_width="20dip"
+        android:layout_height="20dip"/>
+
+    <TextView
+        android:id="@+id/navigation_btn_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="返回"
+        android:textSize="15sp"
+        android:textColor="@drawable/selector_textview"/>
+</LinearLayout>

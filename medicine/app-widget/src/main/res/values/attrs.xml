@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TabStripView">
+        <attr name="navigateTabTextColor" format="color|reference"/>
+        <attr name="navigateTabSelectedTextColor" format="color|reference"/>
+        <attr name="containerId" format="integer|reference"/>
+        <attr name="navigateTabTextSize" format="dimension|reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="HomeItemView">
+        <attr name="itemText" format="string" />
+        <attr name="itemImage" format="reference" />
+        <attr name="itemUnderline" format="boolean" />
+        <attr name="itemDivide" format="boolean" />
+        <attr name="itemIcon" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="NineGridImageView">
+        <attr format="dimension" name="singleImgSize"/>
+        <attr format="dimension" name="imgGap"/>
+        <attr format="integer" name="maxSize"/>
+        <attr format="enum" name="showStyle">
+            <enum name="grid" value="0"/>
+            <enum name="fill" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="AVLoadingIndicatorView">
+        <attr name="indicator">
+            <flag name="BallPulse" value="0"/>
+            <flag name="BallGridPulse" value="1"/>
+            <flag name="BallClipRotate" value="2"/>
+            <flag name="BallClipRotatePulse" value="3"/>
+            <flag name="SquareSpin" value="4"/>
+            <flag name="BallClipRotateMultiple" value="5"/>
+            <flag name="BallPulseRise" value="6"/>
+            <flag name="BallRotate" value="7"/>
+            <flag name="CubeTransition" value="8"/>
+            <flag name="BallZigZag" value="9"/>
+            <flag name="BallZigZagDeflect" value="10"/>
+            <flag name="BallTrianglePath" value="11"/>
+            <flag name="BallScale" value="12"/>
+            <flag name="LineScale" value="13"/>
+            <flag name="LineScaleParty" value="14"/>
+            <flag name="BallScaleMultiple" value="15"/>
+            <flag name="BallPulseSync" value="16"/>
+            <flag name="BallBeat" value="17"/>
+            <flag name="LineScalePulseOut" value="18"/>
+            <flag name="LineScalePulseOutRapid" value="19"/>
+            <flag name="BallScaleRipple" value="20"/>
+            <flag name="BallScaleRippleMultiple" value="21"/>
+            <flag name="BallSpinFadeLoader" value="22"/>
+            <flag name="LineSpinFadeLoader" value="23"/>
+            <flag name="TriangleSkewSpin" value="24"/>
+            <flag name="Pacman" value="25"/>
+            <flag name="BallGridBeat" value="26"/>
+            <flag name="SemiCircleSpin" value="27"/>
+        </attr>
+        <attr name="indicator_color" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ItemView">
+        <attr name="itemViewText" format="string" />
+        <attr name="itemViewTextColor" format="color|reference" />
+        <attr name="itemViewImage" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="FormItemView">
+        <attr name="formLabel" format="string" />
+        <attr name="formHint" format="string" />
+        <attr name="formRequired" format="boolean" />
+        <attr name="formReadOnly" format="boolean" />
+        <attr name="formMaxLength" format="integer" />
+        <attr name="formSelectOption" format="string" />
+        <attr name="formDefaultDate" format="string" />
+        <attr name="formContentType">
+            <enum name="Text" value="1" />
+            <enum name="Int" value="2" />
+            <enum name="Password" value="3" />
+            <enum name="Decimal" value="4" />
+            <enum name="Money" value="5" />
+            <enum name="SingleSelect" value="6" />
+            <enum name="Location" value="8" />
+            <enum name="Date" value="9" />
+            <enum name="DateTime" value="10" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ToggleButton">
+        <attr name="bordWidth" format="dimension"></attr>
+        <attr name="offBordColor" format="reference|color"></attr>
+        <attr name="offColor" format="reference|color"></attr>
+        <attr name="onColor" format="reference|color"></attr>
+        <attr name="spotColor" format="reference|color"></attr>
+        <attr name="animate" format="reference|boolean"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="UnreadView">
+        <attr name="unread" format="integer" />
+    </declare-styleable>
+
+
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tab_title"
+        android:text="11111"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/blue"
+        android:textSize="9.0sp" />
+
+    <ImageView
+        android:id="@+id/tab_icon"
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/tab_title"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="7dp"
+        android:src="@mipmap/ic_camera"
+        android:scaleType="centerInside" />
+
+    <ImageView
+        android:id="@+id/img_unread"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignRight="@id/tab_icon"
+        android:layout_alignTop="@id/tab_icon"
+        android:layout_marginRight="-4dp"
+        android:layout_marginTop="-4dp"
+        android:background="@mipmap/img_red_point3x"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="8sp" />
+
+</RelativeLayout>

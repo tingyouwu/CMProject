@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/selector_white" >
+
+    <ImageView
+        android:id="@+id/item_crm_img"
+        android:layout_width="25dip"
+        android:layout_height="25dip"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dip"
+        android:src="@mipmap/img_point_red" />
+
+    <TextView
+        android:id="@+id/item_crm_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="60dip"
+        android:layout_marginTop="10dip"
+        android:text="草稿箱 "
+        android:textColor="@color/gray_font_2"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/item_crm_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="40dip"
+        android:text="200"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/item_crm_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="40dip"
+        android:src="@mipmap/img_point_red"
+        android:visibility="visible" />
+
+    <ImageView
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dip"
+        android:src="@mipmap/img_nav" />
+
+    <View
+        android:visibility="gone"
+        android:id="@+id/item_crm_underline"
+        android:layout_alignParentBottom="true"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/list_line" />
+    <View
+        android:layout_marginLeft="60dp"
+        android:id="@+id/item_crm_divide"
+        android:layout_alignParentBottom="true"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/list_line" />
+
+</RelativeLayout>
