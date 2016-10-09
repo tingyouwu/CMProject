@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/photographBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_list_item_selector"
+        android:gravity="center"
+        android:padding="10dip"
+        android:text="拍照"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:background="#dfdfdd" />
+
+    <Button
+        android:id="@+id/localPhotosBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_list_item_selector"
+        android:gravity="center"
+        android:padding="10dip"
+        android:text="从本地导入"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.25dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:background="#dfdfdd" />
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_list_item_selector"
+        android:gravity="center"
+        android:padding="10dip"
+        android:text="取消"
+        android:textSize="18sp" />
+
+</LinearLayout>
