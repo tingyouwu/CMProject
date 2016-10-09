@@ -30,7 +30,7 @@ public abstract class BaseBmobObject extends BmobObject {
      * 获取当前所有注解字段
      */
     public List<BmobAnnotationField> getBmobAnnotationField(){
-        BmobAnnotationCache cache = BmobManager.getInstance().getBmobAnnotationCache();
+        BmobAnnotationCache cache = BmobModuleManager.getInstance().getBmobAnnotationCache();
         BmobAnnotationTable table = cache.getTable(getTableName(),this.getClass());
         return table.getFields();
     }
