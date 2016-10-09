@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal" >
+
+    <CheckBox
+        android:id="@+id/checkboxlabel_cb"
+        android:layout_width="18dip"
+        android:layout_height="18dip"
+        android:background="@drawable/checkbox_selector1"
+        android:button="@null" />
+
+    <TextView
+        android:id="@+id/checkboxlabel_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:gravity="center"
+        android:text="记住密码"
+        android:textColor="@color/gray_font_3"
+        android:textSize="15sp" />
+
+</LinearLayout>

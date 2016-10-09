@@ -107,5 +107,10 @@
         <attr name="unread" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="CheckBoxLabel">
+        <attr name="labelTextColor" format="integer" />
+        <attr name="labelTextSize" format="integer" />
+        <attr name="label" format="string" />
+    </declare-styleable>
 
 </resources>
