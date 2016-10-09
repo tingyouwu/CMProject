@@ -22,6 +22,7 @@ import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IUserLoginContract;
 import com.kw.app.medicine.mvp.presenter.UserLoginPresenter;
 import com.kw.app.medicine.widget.login.LoginInputView;
+import com.kw.app.ormlib.OrmModuleManager;
 import com.kw.app.widget.activity.BaseActivity;
 import com.kw.app.widget.view.loadingview.LoadingView;
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -185,6 +186,8 @@ public class LoginActivity extends BaseActivity<UserLoginPresenter> implements I
 
     @Override
     public void finishActivity() {
+        //登录成功之后设置一下当前数据库名字
+        OrmModuleManager.getInstance().setCurrentDBName(PreferenceUtil.getInstance().getLastAccount() + ".db");
         MainActivity.startMainActivity(LoginActivity.this);
         finish();
     }

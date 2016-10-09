@@ -19,7 +19,7 @@ public class OrmModuleManager {
 	private Context context;
 	private SqliteAnnotationCache sqliteAnnotationCache;
 	private Map<String,BaseSqliteOpenHelper> localDBMap = new HashMap<String,BaseSqliteOpenHelper>();
-	private String xtion_dbname = "mydb"; //默认名字
+	private String xtion_dbname = "mydb.db"; //默认名字
 
 	private OrmModuleManager(Context context){
 		this.context = context;
