@@ -9,6 +9,7 @@ import com.kw.app.commonlib.utils.luban.OnCompressListener;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IUserRegisterContract;
+import com.kw.app.ormlib.OrmModuleManager;
 import com.kw.app.widget.ICallBack;
 
 import java.io.File;
@@ -81,6 +82,8 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
             @Override
             public void done(UserBmob userBmob, BmobException e) {
                 if(e==null){
+                    //注册成功之后设置一下当前数据库名字
+                    OrmModuleManager.getInstance().setCurrentDBName(userBmob.getObjectId()+".db");
                     userBmob.save(userBmob);
                     callBack.onSuccess(userBmob.getObjectId());
                 }else{
