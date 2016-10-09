@@ -1,0 +1,121 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login_inputlayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/login_icon"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/login_relationlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/login_bg" >
+
+        <TextView
+            android:id="@+id/label_e"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="15dip"
+            android:gravity="center_vertical"
+            android:background="@mipmap/login_account" />
+
+        <EditText
+            android:id="@+id/et_account"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="5dp"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/label_e"
+            android:background="@drawable/bg_edittext"
+            android:hint="请填写昵称"
+            android:imeOptions="actionNext"
+            android:saveEnabled="true"
+            android:singleLine="true"
+            android:textSize="15sp" />
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/login_relationlayout"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/login_bg">
+
+        <TextView
+            android:id="@+id/label_psw"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dip"
+            android:gravity="center_vertical"
+            android:background="@mipmap/login_psw" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/label_psw"
+            android:hint="请填写密码"
+            android:imeOptions="actionGo"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:saveEnabled="true"
+            android:singleLine="true"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/RelativeLayout"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
+
+        <com.kw.app.widget.view.CheckBoxLabel
+            android:id="@+id/btn_login_rememberpsw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:label = "自动登录"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/btn_login_rememberpsw"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/login_press"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
