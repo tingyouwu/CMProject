@@ -6,6 +6,7 @@ import android.content.Context;
 import com.kw.app.bmoblib.BmobModuleManager;
 import com.kw.app.commonlib.CommonModuleManager;
 import com.kw.app.commonlib.utils.CommonUtil;
+import com.kw.app.ormlib.OrmModuleManager;
 
 import io.rong.imlib.RongIMClient;
 
@@ -27,6 +28,7 @@ public class CMApplication extends Application {
 		if(getApplicationInfo().packageName.equals(CommonUtil.getMyProcessName())){
 			BmobModuleManager.init(mApplication);
 			CommonModuleManager.init(mApplication);
+			OrmModuleManager.init(mApplication);
 		}
 
 		/**

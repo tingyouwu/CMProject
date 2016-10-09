@@ -68,6 +68,18 @@
             android:name=".activity.UpdatePasswordActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
 
+        <activity
+            android:name=".activity.SystemMessageActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+
+        <activity
+            android:name=".activity.FriendRequstActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+
+        <activity
+            android:name=".activity.NewFriendActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+
     </application>
 
 </manifest>

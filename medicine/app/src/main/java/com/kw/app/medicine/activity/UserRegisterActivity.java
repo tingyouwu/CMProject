@@ -145,7 +145,7 @@ public class UserRegisterActivity extends BaseActivity<UserRegisterPresenter> im
     }
 
     private UserDALEx getSubmitData(){
-        UserDALEx user = UserDALEx.get();
+        UserDALEx user = new UserDALEx();
         user.setNickname(etName.getText().toString());
         user.setPassword(etPsw.getText().toString());
         user.setRole(isRoleOn ? UserDALEx.User_Doctor : UserDALEx.User_Not_Doctor);

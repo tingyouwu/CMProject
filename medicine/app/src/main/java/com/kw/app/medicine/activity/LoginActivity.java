@@ -185,7 +185,7 @@ public class LoginActivity extends BaseActivity<UserLoginPresenter> implements I
 
     @Override
     public void finishActivity() {
-//        MainActivity.startMainActivity(LoginActivity.this);
+        MainActivity.startMainActivity(LoginActivity.this);
         finish();
     }
 
