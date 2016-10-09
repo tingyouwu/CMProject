@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:text="邮箱"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/bg_edittext"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:hint="填写您注册账号时的邮箱地址"
+                android:maxLength="50"
+                android:textColorHint="@color/gray_font_3"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="邮箱重置密码流程如下：\n1.您输入注册时邮箱地址，请求重置密码。\n2.系统向您发送一封包含特殊的密码重置链接的邮件。\n3.您根据向导提示输入新密码。\n4.您的密码被重置为新输入密码。"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="@color/gray_font_3"/>
+
+</LinearLayout>

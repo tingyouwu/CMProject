@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="horizontal" >
+
+        <com.kw.app.widget.view.ClearEditText
+            android:id="@+id/filter_edit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="35dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:background="@drawable/bg_searchview"
+            android:drawableLeft="@mipmap/ic_search"
+            android:hint="输入姓名"
+            android:singleLine="true"
+            android:drawablePadding="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="15dip" />
+
+        <Button
+            android:id="@+id/btn_search"
+            style="@style/style_text_white"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/login_bg"
+            android:text="搜索"
+            android:textColor="@color/gray_font_3"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.kw.app.widget.view.xrecyclerview.XRecyclerView
+            android:id = "@+id/rc_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.kw.app.widget.view.loadingview.LoadingView
+            android:id="@+id/lv_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="horizontal" >
+
+        <com.kw.app.widget.view.ClearEditText
+            android:id="@+id/name_edit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/bg_searchview"
+            android:hint="修改昵称"
+            android:singleLine="true"
+            android:drawablePadding="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="15dip" />
+
+        <Button
+            android:id="@+id/btn_name_update"
+            style="@style/style_text_white"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/login_press"
+            android:text="修改"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

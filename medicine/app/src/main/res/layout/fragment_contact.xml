@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.kw.app.widget.view.ClearEditText
+        android:id="@+id/filter_edit"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:background="@drawable/bg_searchview"
+        android:drawableLeft="@mipmap/ic_search"
+        android:hint="搜索"
+        android:singleLine="true"
+        android:drawablePadding="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textSize="15dip" />
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/filter_edit"
+        android:orientation="vertical">
+
+        <com.kw.app.widget.view.xrecyclerview.XRecyclerView
+            android:id = "@+id/listview_dynamic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.kw.app.widget.view.loadingview.LoadingView
+            android:id="@+id/dynamic_fl_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_letter"
+            android:layout_width="80.0dip"
+            android:layout_height="80.0dip"
+            android:layout_gravity="center"
+            android:background="@mipmap/number_base"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30dip"
+            android:visibility="invisible" />
+
+        <com.kw.app.widget.view.SideBar
+            android:id="@+id/filter_letters"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="right|center"/>
+    </FrameLayout>
+
+</RelativeLayout>
+

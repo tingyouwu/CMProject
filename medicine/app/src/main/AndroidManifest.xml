@@ -27,7 +27,45 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"
+        <activity
+            android:name="activity.MainActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+
+        <activity
+            android:name=".activity.UserRegisterActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity
+            android:name=".activity.UserEmailResetPSWActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity
+            android:name=".activity.SearchUserActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity
+            android:name=".activity.UserInfoActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+
+        <activity
+            android:name=".activity.FriendInfoActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:theme="@style/ImageTranslucentTheme"/>
+
+        <activity
+            android:name=".activity.MyAccountActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+
+        <activity
+            android:name=".activity.UpdateNameActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+
+        <activity
+            android:name=".activity.AccountSettingActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+
+        <activity
+            android:name=".activity.UpdatePasswordActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
 
     </application>

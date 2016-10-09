@@ -16,6 +16,7 @@ import com.kw.app.commonlib.utils.CommonUtil;
 import com.kw.app.commonlib.utils.ImageLoaderUtil;
 import com.kw.app.commonlib.utils.PreferenceUtil;
 import com.kw.app.medicine.R;
+import com.kw.app.medicine.base.CMApplication;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IUserLoginContract;
@@ -51,11 +52,11 @@ public class LoginActivity extends BaseActivity<UserLoginPresenter> implements I
 
     @OnClick(R.id.login_signup)
     void goToRegisterActivity(){
-//        UserRegisterActivity.startUserRegisterActivity(this, AppConstant.ActivityResult.Request_Register);
+        UserRegisterActivity.startUserRegisterActivity(this, AppConstant.ActivityResult.Request_Register);
     }
     @OnClick(R.id.login_forgetpsw)
     void showForgetPswMenu(){
-//        UserEmailResetPSWActivity.startUserEmailResetPSWActivity(LoginActivity.this);
+        UserEmailResetPSWActivity.startUserEmailResetPSWActivity(LoginActivity.this);
     }
 
     private String userid;
@@ -131,7 +132,7 @@ public class LoginActivity extends BaseActivity<UserLoginPresenter> implements I
                 public void onLogin() {
                     CommonUtil.keyboardControl(LoginActivity.this, false, mloginInputview.getAccountInput());
                     if (submit()) {
-//                        mPresenter.login(CMApplication.getInstance(),mloginInputview.getAccount().toString(), mloginInputview.getPassword().toString(), mloginInputview.isRememberPsw());
+                        mPresenter.login(CMApplication.getInstance(),mloginInputview.getAccount().toString(), mloginInputview.getPassword().toString(), mloginInputview.isRememberPsw());
                     }
                 }
             });
@@ -172,12 +173,12 @@ public class LoginActivity extends BaseActivity<UserLoginPresenter> implements I
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {//从选择图片页面返回
             if (requestCode == AppConstant.ActivityResult.Request_Register) {
-//                userid = data.getStringExtra(UserRegisterActivity.USERID);
-//                UserDALEx user = UserDALEx.get().findById(userid);
-//                mloginInputview.getAccountInput().setText(user.getNickname());
-//                if(!TextUtils.isEmpty(user.getLogourl())){
-//                    ImageLoaderUtil.load(mloginIcon.getContext(),user.getLogourl(),mloginIcon);
-//                }
+                userid = data.getStringExtra(UserRegisterActivity.USERID);
+                UserDALEx user = UserDALEx.get().findById(userid);
+                mloginInputview.getAccountInput().setText(user.getNickname());
+                if(!TextUtils.isEmpty(user.getLogourl())){
+                    ImageLoaderUtil.load(mloginIcon.getContext(),user.getLogourl(),mloginIcon);
+                }
             }
         }
     }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_setting_background">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:gravity="center_vertical"
+        android:text="当前密码"
+        android:textColor="#999"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/old_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:lines="1"
+        android:maxLength="16"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:hint="输入当前密码"
+        android:background="@color/white"
+        android:password="true"
+        android:textColor="#dadada"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:gravity="center_vertical"
+        android:text="新密码"
+        android:textColor="#999"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/new_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="6-16个字符,区分大小写"
+        android:lines="1"
+        android:maxLength="16"
+        android:background="@color/white"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:password="true"
+        android:textColor="#dadada"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:gravity="center_vertical"
+        android:text="确认密码"
+        android:textColor="#999"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/new_password2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="6-16个字符,区分大小写"
+        android:lines="1"
+        android:maxLength="16"
+        android:background="@color/white"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:password="true"
+        android:textColor="#dadada"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/update_pswd_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn_green_selector"
+        android:text="确定"
+        android:textColor="#FFF" />
+
+</LinearLayout>
