@@ -13,15 +13,15 @@ import java.util.Map;
  * @Decription 管理数据库对象以及缓存对象(改善由于反射造成的性能)
  * @author 吴廷优 on 2016/09/01
  **/
-public class OrmManager {
+public class OrmModuleManager {
 
-	private static volatile OrmManager sInstance = null;
+	private static volatile OrmModuleManager sInstance = null;
 	private Context context;
 	private SqliteAnnotationCache sqliteAnnotationCache;
 	private Map<String,BaseSqliteOpenHelper> localDBMap = new HashMap<String,BaseSqliteOpenHelper>();
 	private String xtion_dbname = "mydb"; //默认名字
 
-	private OrmManager(Context context){
+	private OrmModuleManager(Context context){
 		this.context = context;
 	}
 
@@ -38,15 +38,15 @@ public class OrmManager {
 	 **/
 	public static void init(Context context){
 		if (sInstance == null) {
-			synchronized (OrmManager.class) {
+			synchronized (OrmModuleManager.class) {
 				if (sInstance == null) {
-					sInstance = new OrmManager(context);
+					sInstance = new OrmModuleManager(context);
 				}
 			}
 		}
 	}
 
-	public static OrmManager getInstance() {
+	public static OrmModuleManager getInstance() {
 		return sInstance;
 	}
 
@@ -95,7 +95,7 @@ public class OrmManager {
 	BaseSqliteOpenHelper getSqliteHelper(){
 		BaseSqliteOpenHelper db = localDBMap.get(xtion_dbname);
 		if(db == null){
-			synchronized (OrmManager.class){
+			synchronized (OrmModuleManager.class){
 				if(db == null){
 					db = new BaseSqliteOpenHelper(context, xtion_dbname, CommonUtil.getDbVersion(context));
 					localDBMap.put(xtion_dbname, db);

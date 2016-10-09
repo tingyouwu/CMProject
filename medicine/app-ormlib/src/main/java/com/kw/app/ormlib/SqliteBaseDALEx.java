@@ -53,7 +53,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	 * @return 当前DB
 	 **/
 	public static BaseSqliteOpenHelper getDB(){
-		return OrmManager.getInstance().getSqliteHelper();
+		return OrmModuleManager.getInstance().getSqliteHelper();
 	}
 	
 	/**
@@ -239,7 +239,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
      */
     private final void setAnnotationField(Cursor cursor,Map<String, Integer> cursorIndex){
     	try {
-			SqliteAnnotationCache cache = OrmManager.getInstance().getSqliteAnnotationCache();
+			SqliteAnnotationCache cache = OrmModuleManager.getInstance().getSqliteAnnotationCache();
     		SqliteAnnotationTable table = cache.getTable(TABLE_NAME, this.getClass());
 
 			if(cursorIndex == null){
@@ -340,7 +340,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	 * @Decription 获取所有注解字段
 	 */
 	public List<SqliteAnnotationField> getSqliteAnnotationField(){
-		SqliteAnnotationCache cache = OrmManager.getInstance().getSqliteAnnotationCache();
+		SqliteAnnotationCache cache = OrmModuleManager.getInstance().getSqliteAnnotationCache();
 		SqliteAnnotationTable table = cache.getTable(TABLE_NAME,this.getClass());
 		return table.getFields();
 	}
@@ -349,7 +349,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	 * @Decription 获取表主键
 	 */
 	public String getPrimaryKey(){
-		SqliteAnnotationCache cache = OrmManager.getInstance().getSqliteAnnotationCache();
+		SqliteAnnotationCache cache = OrmModuleManager.getInstance().getSqliteAnnotationCache();
 		SqliteAnnotationTable table = cache.getTable(TABLE_NAME,this.getClass());
 		return table.getPrimaryKey();
 	}
@@ -358,7 +358,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	 * @Decription 根据列名找到对应的字段
 	 */
 	public SqliteAnnotationField getSqliteAnnotationField(String columnname){
-		SqliteAnnotationCache cache = OrmManager.getInstance().getSqliteAnnotationCache();
+		SqliteAnnotationCache cache = OrmModuleManager.getInstance().getSqliteAnnotationCache();
 		SqliteAnnotationTable table = cache.getTable(TABLE_NAME,this.getClass());
 		return table.getField(columnname);
 	}
@@ -418,7 +418,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 		String result = "";
 		String key = getPrimaryKey();
 		if(TextUtils.isEmpty(key))return null;
-		SqliteAnnotationCache cache = OrmManager.getInstance().getSqliteAnnotationCache();
+		SqliteAnnotationCache cache = OrmModuleManager.getInstance().getSqliteAnnotationCache();
 		SqliteAnnotationTable table = cache.getTable(TABLE_NAME,this.getClass());
 		SqliteAnnotationField field = table.getField(key);
 		
@@ -441,7 +441,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	public void setPrimaryId(String id){
 		String key = getPrimaryKey();
 		if(TextUtils.isEmpty(key))return;
-		SqliteAnnotationCache cache = OrmManager.getInstance().getSqliteAnnotationCache();
+		SqliteAnnotationCache cache = OrmModuleManager.getInstance().getSqliteAnnotationCache();
 		SqliteAnnotationTable table = cache.getTable(TABLE_NAME,this.getClass());
 		SqliteAnnotationField field = table.getField(key);
 
@@ -591,7 +591,7 @@ public abstract class SqliteBaseDALEx implements Serializable,Cloneable{
 	 * @Decription 获取当前cursor 列对应的索引
 	 **/
 	protected final Map<String, Integer> getCursorIndex(Cursor cursor){
-		SqliteAnnotationCache cache = OrmManager.getInstance().getSqliteAnnotationCache();
+		SqliteAnnotationCache cache = OrmModuleManager.getInstance().getSqliteAnnotationCache();
 		SqliteAnnotationTable table = cache.getTable(TABLE_NAME,this.getClass());
 		return table.getCursorIndex(cursor);
 	}
