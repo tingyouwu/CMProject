@@ -13,7 +13,7 @@ import cn.bmob.v3.Bmob;
  **/
 public class BmobModuleManager {
 
-	public static final String Bmob_ApplicationId = "23913c4360866d3d50aee19a56fa24ff";
+	public static final String Bmob_ApplicationId = "a0cdfdcda61923319f69dd6ee0a409c4";
 	private static volatile BmobModuleManager sInstance = null;
 
 	/** Bmob对象中字段 缓存，注入时用到 */
