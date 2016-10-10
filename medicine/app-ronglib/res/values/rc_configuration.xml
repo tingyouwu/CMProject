@@ -10,5 +10,5 @@
     <!-- 设置发送输入状态 -->
     <bool name="rc_typing_status">false</bool>
 
-    <string name="rc_media_message_default_save_path">/com.kw.app/voice/</string>
+    <string name="rc_media_message_default_save_path">/com.kw.app.medicine/voice/</string>
 </resources>

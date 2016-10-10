@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kw.app.ronglib">
+    package="io.rong.imlib">
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -40,6 +40,8 @@
             android:name="io.rong.imlib.HeartbeatReceiver"
             android:process=":ipc" />
         <!-- imlib config end -->
+
+        <!-- end -->
     </application>
 
 </manifest>
