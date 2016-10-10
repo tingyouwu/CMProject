@@ -1,1 +1,1 @@
-include ':app', ':app-common', ':app-ronglib', ':app-photolib', ':app-ormlib', ':app-widget', ':app-bmoblib'
+include ':app', ':app-common', ':app-ronglib', ':app-photolib', ':app-ormlib', ':app-widget', ':app-bmoblib',':app-imlib'
