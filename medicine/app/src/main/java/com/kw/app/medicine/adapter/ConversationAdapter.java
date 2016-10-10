@@ -7,9 +7,9 @@ import android.widget.TextView;
 
 import com.kw.app.commonlib.utils.ImageLoaderUtil;
 import com.kw.app.commonlib.utils.TimeUtil;
+import com.kw.app.imlib.bean.RongConversation;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.bean.conversation.PrivateConversation;
-import com.kw.app.ronglib.bean.RongConversation;
 import com.kw.app.widget.BaseRecyclerViewHolder;
 import com.kw.app.widget.adapter.BaseRecyclerViewAdapter;
 import com.kw.app.widget.view.UnreadTextView;

@@ -23,7 +23,7 @@ dependencies {
     compile project(':app-widget')
     compile project(':app-ormlib')
     compile project(':app-photolib')
-    compile project(':app-ronglib')
+    compile project(':app-imlib')
     compile project(':app-bmoblib')
 
 }

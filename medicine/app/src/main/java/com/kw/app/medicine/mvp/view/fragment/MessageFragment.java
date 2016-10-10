@@ -6,12 +6,12 @@ import android.view.View;
 
 import com.devspark.appmsg.AppMsg;
 import com.kw.app.commonlib.utils.AppLogUtil;
+import com.kw.app.imlib.bean.RongConversation;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.adapter.ConversationAdapter;
 import com.kw.app.medicine.event.RefreshEvent;
 import com.kw.app.medicine.mvp.contract.IMessageContract;
 import com.kw.app.medicine.mvp.presenter.MessagePresenter;
-import com.kw.app.ronglib.bean.RongConversation;
 import com.kw.app.widget.fragment.BaseFragment;
 import com.kw.app.widget.view.loadingview.LoadingState;
 import com.kw.app.widget.view.loadingview.LoadingView;

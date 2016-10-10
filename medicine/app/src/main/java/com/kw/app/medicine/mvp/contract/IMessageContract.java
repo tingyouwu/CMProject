@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.kw.app.commonlib.mvp.model.IBaseModel;
 import com.kw.app.commonlib.mvp.view.IBaseView;
-import com.kw.app.ronglib.bean.RongConversation;
+import com.kw.app.imlib.bean.RongConversation;
 import com.kw.app.widget.ICallBack;
 
 import java.util.List;

@@ -2,8 +2,8 @@ package com.kw.app.medicine.bean.conversation;
 
 import android.content.Context;
 
+import com.kw.app.imlib.bean.RongConversation;
 import com.kw.app.medicine.R;
-import com.kw.app.ronglib.bean.RongConversation;
 
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.MessageContent;

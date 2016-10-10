@@ -3,13 +3,13 @@ package com.kw.app.medicine.bean.conversation;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.kw.app.imlib.bean.RongConversation;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.activity.ChatActivity;
 import com.kw.app.medicine.base.BmobUserModel;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.FileMessageDALEx;
 import com.kw.app.medicine.data.local.UserDALEx;
-import com.kw.app.ronglib.bean.RongConversation;
 import com.kw.app.widget.ICallBack;
 
 import org.json.JSONException;

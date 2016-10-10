@@ -11,11 +11,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.kw.app.commonlib.utils.ImageLoaderUtil;
 import com.kw.app.commonlib.utils.PreferenceUtil;
+import com.kw.app.imlib.messagecontent.CustomzeContactNotificationMessage;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.FriendRelationDALEx;
 import com.kw.app.medicine.data.local.UserDALEx;
-import com.kw.app.ronglib.messagecontent.CustomzeContactNotificationMessage;
 import com.kw.app.widget.activity.BaseActivity;
 
 import java.util.HashMap;

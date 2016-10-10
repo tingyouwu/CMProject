@@ -2,11 +2,11 @@ package com.kw.app.medicine.mvp.model;
 
 import android.content.Context;
 
+import com.kw.app.imlib.bean.RongConversation;
 import com.kw.app.medicine.bean.conversation.PrivateConversation;
 import com.kw.app.medicine.bean.conversation.SystemMessageConversation;
 import com.kw.app.medicine.data.local.SystemMessageDALEx;
 import com.kw.app.medicine.mvp.contract.IMessageContract;
-import com.kw.app.ronglib.bean.RongConversation;
 import com.kw.app.widget.ICallBack;
 
 import java.util.ArrayList;

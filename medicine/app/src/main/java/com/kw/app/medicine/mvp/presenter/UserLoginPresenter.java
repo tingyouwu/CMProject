@@ -4,12 +4,12 @@ import android.content.Context;
 
 import com.kw.app.commonlib.mvp.presenter.BasePresenter;
 import com.kw.app.commonlib.utils.AppLogUtil;
+import com.kw.app.imlib.fakeserver.FakeServer;
+import com.kw.app.imlib.fakeserver.FakeUser;
+import com.kw.app.imlib.fakeserver.HttpUtil;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.mvp.contract.IUserLoginContract;
 import com.kw.app.medicine.mvp.model.UserLoginModel;
-import com.kw.app.ronglib.fakeserver.FakeServer;
-import com.kw.app.ronglib.fakeserver.FakeUser;
-import com.kw.app.ronglib.fakeserver.HttpUtil;
 import com.kw.app.widget.ICallBack;
 import com.kw.app.widget.view.sweetdialog.OnDismissCallbackListener;
 

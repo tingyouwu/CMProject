@@ -3,9 +3,9 @@ package com.kw.app.medicine.mvp.presenter;
 import android.content.Context;
 
 import com.kw.app.commonlib.mvp.presenter.BasePresenter;
+import com.kw.app.imlib.bean.RongConversation;
 import com.kw.app.medicine.mvp.contract.IMessageContract;
 import com.kw.app.medicine.mvp.model.MessageModel;
-import com.kw.app.ronglib.bean.RongConversation;
 import com.kw.app.widget.ICallBack;
 
 import java.util.List;

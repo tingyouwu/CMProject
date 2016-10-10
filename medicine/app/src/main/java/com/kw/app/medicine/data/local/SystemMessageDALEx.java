@@ -3,10 +3,10 @@ package com.kw.app.medicine.data.local;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.kw.app.imlib.messagecontent.CustomzeContactNotificationMessage;
 import com.kw.app.ormlib.SqliteBaseDALEx;
 import com.kw.app.ormlib.annotation.DatabaseField;
 import com.kw.app.ormlib.annotation.SqliteDao;
-import com.kw.app.ronglib.messagecontent.CustomzeContactNotificationMessage;
 import com.orhanobut.logger.Logger;
 import org.json.JSONObject;
 

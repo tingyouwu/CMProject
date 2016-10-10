@@ -5,6 +5,9 @@ import android.text.TextUtils;
 
 import com.kw.app.commonlib.utils.AppLogUtil;
 import com.kw.app.commonlib.utils.CommonUtil;
+import com.kw.app.imlib.bean.AddFriendMessage;
+import com.kw.app.imlib.bean.AgreeAddFriendMessage;
+import com.kw.app.imlib.messagecontent.CustomzeContactNotificationMessage;
 import com.kw.app.medicine.data.local.FileMessageDALEx;
 import com.kw.app.medicine.data.local.NewFriendDALEx;
 import com.kw.app.medicine.data.local.SystemMessageDALEx;
@@ -13,9 +16,6 @@ import com.kw.app.medicine.data.local.VoiceReadStatusDALEx;
 import com.kw.app.medicine.event.RefreshChatEvent;
 import com.kw.app.medicine.event.RefreshEvent;
 import com.kw.app.medicine.event.RefreshMessageTabEvent;
-import com.kw.app.ronglib.bean.AddFriendMessage;
-import com.kw.app.ronglib.bean.AgreeAddFriendMessage;
-import com.kw.app.ronglib.messagecontent.CustomzeContactNotificationMessage;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
