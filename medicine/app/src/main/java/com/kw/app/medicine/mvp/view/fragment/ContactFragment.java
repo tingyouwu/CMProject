@@ -9,6 +9,7 @@ import com.devspark.appmsg.AppMsg;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.activity.SearchUserActivity;
 import com.kw.app.medicine.adapter.ContactAdapter;
+import com.kw.app.medicine.bean.FriendBean;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IContactContract;
 import com.kw.app.medicine.mvp.presenter.ContactPresenter;
@@ -47,7 +48,7 @@ public class ContactFragment extends BaseFragment<ContactPresenter> implements I
 
     ContactAdapter adapter;
     LinearLayoutManager linearLayoutManager;
-    private List<UserDALEx> mDataList = new ArrayList<>();
+    private List<FriendBean> mDataList = new ArrayList<>();
 
     @Override
     public ContactPresenter getPresenter() {
@@ -69,7 +70,7 @@ public class ContactFragment extends BaseFragment<ContactPresenter> implements I
             @Override
             public void onTouchingLetterChanged(String s) {
                 // 该字母首次出现的位置
-                int position = adapter.getPositionForSection(s.charAt(0));
+                int position = adapter.getPositionForSection(s);
                 if (position != -1) {
                     linearLayoutManager.scrollToPositionWithOffset(position-1+2,0);
                 }
@@ -130,7 +131,8 @@ public class ContactFragment extends BaseFragment<ContactPresenter> implements I
         adapter.clearData();
         if(list.size()!=0){
             filter_letters.setLettersList(getSortLetter(list));
-            adapter.retsetData(list);
+            List<FriendBean> friendlist = getContactList(list);
+            adapter.retsetData(friendlist);
             mLoadingView.setVisibility(View.GONE);
             listview.setNoMore(list.size() + "位联系人");
         }else{
@@ -170,6 +172,27 @@ public class ContactFragment extends BaseFragment<ContactPresenter> implements I
 
         letters.addAll(letterMap.values());
         return letters;
+    }
+
+    /**
+     * 获取列表
+     **/
+    public List<FriendBean> getContactList(List<UserDALEx> list){
+        List<FriendBean> contactlist = new ArrayList<>();
+        for(UserDALEx user:list){
+            FriendBean model = new FriendBean();
+            String sortString = user.getPinyin().substring(0, 1).toUpperCase();
+            // 正则表达式，判断首字母是否是英文字母
+            if(sortString.matches("[A-Z]")){
+                model.setSortkey(sortString);
+            }else{
+                model.setSortkey("#");
+            }
+            model.setUser(user);
+            contactlist.add(model);
+        }
+
+        return contactlist;
     }
 
 }
