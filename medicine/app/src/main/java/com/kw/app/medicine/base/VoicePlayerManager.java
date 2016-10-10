@@ -4,13 +4,13 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.kw.app.commonlib.base.AppConstant;
 import com.kw.app.commonlib.utils.record.VoicePlayer;
 import java.io.File;
 
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
+import io.rong.message.FileMessage;
 
 /**
  * 管理播放语音
@@ -70,19 +70,21 @@ public class VoicePlayerManager {
 	}
 
 	public void play(Message msg){
+		FileMessage message = (FileMessage) msg.getContent();
 		if(!TextUtils.isEmpty(this.playingUrl)){
 			//当前有录音在播放
 			voicePlayer.stop();
 		}
 
-		if(TextUtils.isEmpty(msg.getUId())){
+		if(TextUtils.isEmpty(message.getLocalPath().toString())){
 			Toast.makeText(context,"语音文件路径为空，无法播放",Toast.LENGTH_LONG).show();
+			return;
 		}
 
-		if(!checkFileExsit(msg.getUId())){
+		if(!checkFileExsit(message.getLocalPath().toString())){
 			downloadVoice(msg);
 		}else{
-			voicePlayer.playByPath(AppConstant.VOICE_PATH + File.separator + msg.getUId());
+			voicePlayer.playByPath(message.getLocalPath().toString());
 		}
 	}
 
@@ -95,8 +97,7 @@ public class VoicePlayerManager {
 	 * @Decription 判断当前文件是否存在
 	 **/
 	public boolean checkFileExsit(String filename){
-		//这里的url为文件id
-		File file = new File(AppConstant.VOICE_PATH+"/"+filename);
+		File file = new File(filename);
 		return file.exists();
 	}
 
@@ -110,13 +111,14 @@ public class VoicePlayerManager {
 	/**
 	 * @Decription 获取当前状态
 	 **/
-	public Status getStatus(String fileid){
-		if(TextUtils.isEmpty(fileid))return Status.Normal;
-		if(!TextUtils.isEmpty(playingUrl) &&  (AppConstant.VOICE_PATH+"/"+fileid).equals(playingUrl)){
+	public Status getStatus(Message msg){
+		FileMessage message = (FileMessage) msg.getContent();
+		if(TextUtils.isEmpty(message.getLocalPath().toString()))return Status.Normal;
+		if(!TextUtils.isEmpty(playingUrl) &&  (message.getLocalPath().toString()).equals(playingUrl)){
 			//url与播放中的音频匹配
 			return Status.Playing;
 		}
-		if(!TextUtils.isEmpty(downloadUrl) &&  fileid.equals(downloadUrl)){
+		if(!TextUtils.isEmpty(downloadUrl) &&  (message.getLocalPath().toString()).equals(downloadUrl)){
 			return Status.Downloading;
 		}
 		return Status.Normal;
@@ -134,12 +136,15 @@ public class VoicePlayerManager {
 	}
 
 	private void downloadVoice(final Message msg){
-		this.downloadUrl = msg.getUId();
+		FileMessage message = (FileMessage) msg.getContent();
+
+		this.downloadUrl = message.getLocalPath().toString();
 		RongManager.getInstance().downloadMediaFile(msg, new IRongCallback.IDownloadMediaMessageCallback() {
 			@Override
 			public void onSuccess(Message message) {
+				FileMessage file = (FileMessage) message.getContent();
 				downloadUrl = null;
-				voicePlayer.playByPath(AppConstant.VOICE_PATH+"/"+msg.getUId());
+				voicePlayer.playByPath(file.getLocalPath().toString());
 			}
 
 			@Override

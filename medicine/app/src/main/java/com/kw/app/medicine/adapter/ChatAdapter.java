@@ -88,7 +88,7 @@ public class ChatAdapter extends BaseRecyclerViewMultiItemAdapter<Message> {
         int oldposition = mData.size()-1;
         mData.remove(oldposition);
         mData.add(msg);
-        notifyItemRangeChanged(oldposition,mData.size()-oldposition);
+        notifyItemRangeChanged(oldposition+1,mData.size()-oldposition);
     }
 
     @Override
@@ -230,7 +230,7 @@ public class ChatAdapter extends BaseRecyclerViewMultiItemAdapter<Message> {
         lengthFakeText = sb.toString();
         lengthspace.setText(lengthFakeText);
 
-        status = VoicePlayerManager.getInstance(mContext).getStatus(msg.getUId());
+        status = VoicePlayerManager.getInstance(mContext).getStatus(msg);
 
         layout_voice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -296,7 +296,7 @@ public class ChatAdapter extends BaseRecyclerViewMultiItemAdapter<Message> {
         lengthFakeText = sb.toString();
         lengthspace.setText(lengthFakeText);
 
-        status = VoicePlayerManager.getInstance(mContext).getStatus(msg.getUId());
+        status = VoicePlayerManager.getInstance(mContext).getStatus(msg);
 
         boolean isDownloading = (status == VoicePlayerManager.Status.Downloading);
         final boolean isPlaying = (status == VoicePlayerManager.Status.Playing);
