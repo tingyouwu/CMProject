@@ -93,14 +93,14 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
          **/
         mData.remove(position);
         notifyItemRemoved(position);
-        notifyItemRangeChanged(position,mData.size()-position);
+        if(mData.size()>1)
+            notifyItemRangeChanged(position,mData.size()-position);
 
     }
 
     public void addOne(T item) {
         mData.add(item);
         notifyItemInserted(mData.size());
-        notifyItemRangeChanged(mData.size()-1,1);
     }
 
     public void addOne(int position, T item) {
