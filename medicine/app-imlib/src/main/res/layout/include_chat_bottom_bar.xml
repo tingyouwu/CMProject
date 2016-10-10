@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/base_comment_emo_bar">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin_5"
+        android:paddingRight="@dimen/margin_5"
+        android:minHeight="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_chat_voice"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="6dp"
+            android:background="@mipmap/img_chatroom_voice"
+            android:gravity="center"
+            android:textColor="@color/base_color_text_black" >
+        </Button>
+
+        <Button
+            android:id="@+id/btn_chat_keyboard"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="6dp"
+            android:visibility="gone"
+            android:background="@mipmap/img_chatroom_keybroad"
+            android:gravity="center"
+            android:textColor="@color/base_color_text_black" >
+        </Button>
+
+        <EditText
+            android:id="@+id/edit_msg"
+            android:textSize="@dimen/text_size_medium"
+            android:textColor="@color/color_1e1e1e"
+            android:hint=""
+            android:textColorHint="@color/color_b4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="left|center"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:lineSpacingExtra="@dimen/margin_3"
+            android:background="@drawable/bg_chat_edittext"
+            android:imeOptions="flagNoExtractUi"
+            android:minHeight="@dimen/height_40"
+            android:padding="@dimen/margin_5"/>
+
+        <Button
+            android:id="@+id/btn_speak"
+            style="@style/style_text_black"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/btn_chat_record_selector"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="@color/colorBrownPrimary"
+            android:text="@string/longclick_speak" >
+        </Button>
+
+        <Button
+            android:id="@+id/btn_chat_add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/img_chatroom_more"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/btn_chat_send"
+            android:layout_width="@dimen/height_60"
+            android:layout_height="@dimen/height_35"
+            android:visibility="gone"
+            android:text="发送"
+            android:background="@drawable/login_press"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_small"
+            android:layout_marginLeft="@dimen/margin_6"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_emote_divder"
+        android:focusable="false" />
+
+    <LinearLayout
+        android:id="@+id/layout_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/layout_add"
+            android:visibility="gone"
+            layout="@layout/include_chat_add" />
+
+    </LinearLayout>
+
+</LinearLayout>
