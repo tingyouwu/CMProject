@@ -35,7 +35,7 @@ public class RecordManager implements RecordControlListener{
 	private MediaRecorder recorder;
 	private int voiceLevel = 4;//音量等级
 
-	CountDownTimer countDowntimer = new CountDownTimer(MAX_RECORD_TIME,500) {
+	CountDownTimer countDowntimer = new CountDownTimer(MAX_RECORD_TIME,200) {
 		@Override
 		public void onTick(long millisUntilFinished) {
 			//剩余时间  millisUntilFinished
