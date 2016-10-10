@@ -9,13 +9,13 @@ import android.content.Context;
 public class AppConstant {
 
     public static String APP_PATH;
-    public static String SAVEIMAGE_PATH = APP_PATH + "/SaveImages"; //保存图片路径
-    public static String IMAGE_PATH = APP_PATH + "/Images";//图片路径
-    public static String VOICE_PATH = APP_PATH  + "/voice";//录音路径
-    public static String DOC_PATH = APP_PATH  + "/file";//文件路径
-    public static String CAMERA_PATH = APP_PATH + "/CameraImage/";//拍照路径
-    public static String CROP_PATH = APP_PATH + "/CropImage/";//裁剪路径
-    public static String CACHE_PATH = APP_PATH + "/CacheFile/";//缓存文件路径
+    public static String SAVEIMAGE_PATH; //保存图片路径
+    public static String IMAGE_PATH;//图片路径
+    public static String VOICE_PATH;//录音路径
+    public static String DOC_PATH;//文件路径
+    public static String CAMERA_PATH;//拍照路径
+    public static String CROP_PATH;//裁剪路径
+    public static String CACHE_PATH;//缓存文件路径
 
     public static void init(Context applicationContext){
         APP_PATH = android.os.Environment.getExternalStorageDirectory().getPath() + "/"+applicationContext.getPackageName();
