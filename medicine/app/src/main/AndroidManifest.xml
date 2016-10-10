@@ -3,6 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.kw.app.medicine">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 监听网络的变化 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 设备休眠 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- sd卡存储 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 摄像头 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 录音 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 通知震动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:name=".base.CMApplication"
         android:allowBackup="true"
@@ -22,13 +45,12 @@
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-            android:name="activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
 
         <activity
@@ -79,6 +101,10 @@
         <activity
             android:name=".activity.NewFriendActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
+
+        <activity
+            android:name=".activity.ChatActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
 
     </application>
 

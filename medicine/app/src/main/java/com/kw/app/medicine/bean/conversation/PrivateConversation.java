@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.kw.app.medicine.R;
+import com.kw.app.medicine.activity.ChatActivity;
 import com.kw.app.medicine.base.BmobUserModel;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.FileMessageDALEx;
@@ -135,7 +136,7 @@ public class PrivateConversation extends RongConversation {
 
     @Override
     public void onClick(Context context) {
-//        ChatActivity.startChatActivity(context,user);
+        ChatActivity.startChatActivity(context,user);
     }
 
     @Override

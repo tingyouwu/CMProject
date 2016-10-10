@@ -36,7 +36,7 @@ public class CMApplication extends Application {
 		 * io.rong.push 为融云 push 进程名称，不可修改。
 		 */
 		if(getApplicationInfo().packageName.equals(CommonUtil.getMyProcessName()) || "io.rong.push".equals(CommonUtil.getMyProcessName())){
-			RongIMClient.init(this);
+			RongManager.init(this);
 		}
 
 	}

@@ -59,11 +59,13 @@ public class SearchUserActivity extends BaseActivity {
             @Override
             public void onSuccess(List<UserBmob> list) {
                 adapter.retsetData(list);
+                rcSearch.refreshComplete();
             }
 
             @Override
             public void onFaild(String msg) {
                 adapter.clearData();
+                rcSearch.refreshComplete();
                 showAppToast(msg);
             }
         });
@@ -83,6 +85,7 @@ public class SearchUserActivity extends BaseActivity {
 
         rcSearch.setLoadingMoreProgressStyle(ProgressStyle.LineSpinFadeLoader);
         rcSearch.setRefreshProgressStyle(ProgressStyle.BallClipRotatePulse);
+        rcSearch.setLoadingMoreEnabled(false);
         rcSearch.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {

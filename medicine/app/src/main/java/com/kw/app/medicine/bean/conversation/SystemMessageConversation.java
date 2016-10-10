@@ -3,6 +3,7 @@ package com.kw.app.medicine.bean.conversation;
 import android.content.Context;
 
 import com.kw.app.medicine.R;
+import com.kw.app.medicine.activity.SystemMessageActivity;
 import com.kw.app.medicine.data.local.SystemMessageDALEx;
 import com.kw.app.ronglib.bean.RongConversation;
 
@@ -45,7 +46,7 @@ public class SystemMessageConversation extends RongConversation {
 
     @Override
     public void onClick(Context context) {
-//        SystemMessageActivity.startSystemMessageActivity(context);
+        SystemMessageActivity.startSystemMessageActivity(context);
     }
 
     @Override

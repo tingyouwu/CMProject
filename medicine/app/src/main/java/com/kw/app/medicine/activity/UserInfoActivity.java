@@ -56,7 +56,7 @@ public class UserInfoActivity extends BaseActivity {
     @OnClick(R.id.btn_send_message)
     public void onSendMessage(View view){
         UserDALEx friend = UserDALEx.get().findById(user.getObjectId());
-//        ChatActivity.startChatActivity(UserInfoActivity.this,friend);
+        ChatActivity.startChatActivity(UserInfoActivity.this,friend);
     }
 
     @OnClick(R.id.btn_add_friend)

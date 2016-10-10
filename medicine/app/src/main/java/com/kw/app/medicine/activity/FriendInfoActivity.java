@@ -65,7 +65,7 @@ public class FriendInfoActivity extends BaseActivity {
             case R.id.btn_call:
                 break;
             case R.id.btn_send_message:
-//                ChatActivity.startChatActivity(FriendInfoActivity.this,user);
+                ChatActivity.startChatActivity(FriendInfoActivity.this,user);
                 break;
         }
     }
