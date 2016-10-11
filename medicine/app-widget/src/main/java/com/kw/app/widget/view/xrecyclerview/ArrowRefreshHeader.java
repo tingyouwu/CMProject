@@ -28,14 +28,23 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 
 	private Animation mRotateUpAnim;
 	private Animation mRotateDownAnim;
-	
-	private static final int ROTATE_ANIM_DURATION = 180;
+    private String status_normal;
+    private String status_release_to_refresh;
+    private String status_refreshing;
+    private String status_done;
+
+
+    private static final int ROTATE_ANIM_DURATION = 180;
 
 	public int mMeasuredHeight;
 
 	public ArrowRefreshHeader(Context context) {
 		super(context);
 		initView();
+        status_normal = context.getResources().getString(R.string.listview_header_hint_normal);
+        status_release_to_refresh = context.getResources().getString(R.string.listview_header_hint_release);
+        status_refreshing = context.getResources().getString(R.string.refreshing);
+        status_done = context.getResources().getString(R.string.refresh_done);
 	}
 
 	/**
@@ -165,20 +174,20 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
                 if (mState == STATE_REFRESHING) {
                     mArrowImageView.clearAnimation();
                 }
-                mStatusTextView.setText(R.string.listview_header_hint_normal);
+                mStatusTextView.setText(status_normal);
                 break;
             case STATE_RELEASE_TO_REFRESH:
                 if (mState != STATE_RELEASE_TO_REFRESH) {
                     mArrowImageView.clearAnimation();
                     mArrowImageView.startAnimation(mRotateUpAnim);
-                    mStatusTextView.setText(R.string.listview_header_hint_release);
+                    mStatusTextView.setText(status_release_to_refresh);
                 }
                 break;
-            case     STATE_REFRESHING:
-                mStatusTextView.setText(R.string.refreshing);
+            case STATE_REFRESHING:
+                mStatusTextView.setText(status_refreshing);
                 break;
-            case    STATE_DONE:
-                mStatusTextView.setText(R.string.refresh_done);
+            case STATE_DONE:
+                mStatusTextView.setText(status_done);
                 break;
             default:
 		}
@@ -216,6 +225,22 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 		lp.height = height;
 		mContainer.setLayoutParams(lp);
 	}
+
+    public void setStatusNorml(String normal){
+        status_normal = normal;
+    }
+
+    public void setStatusRelease(String release){
+        status_release_to_refresh = release;
+    }
+
+    public void setStatusRefreshing(String refreshing){
+        status_refreshing = refreshing;
+    }
+
+    public void setStatusDone(String done){
+        status_done = done;
+    }
 
 	public int getVisibleHeight() {
         LayoutParams lp = (LayoutParams) mContainer.getLayoutParams();

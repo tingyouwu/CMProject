@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -74,6 +75,10 @@ public class XRecyclerView extends RecyclerView {
         }
         mHeaderViews.add(view);
         sHeaderTypes.add(HEADER_INIT_INDEX + mHeaderViews.size());
+    }
+
+    public void clearFootView(){
+        mFootViews.clear();
     }
 
     public void addFootView(final View view) {
@@ -150,6 +155,30 @@ public class XRecyclerView extends RecyclerView {
         mRefreshProgressStyle = style;
         if (mRefreshHeader != null) {
             mRefreshHeader.setProgressStyle(style);
+        }
+    }
+
+    /**
+     * 设置一下下拉刷新的提示语
+     **/
+    public void setRefreshString(String normal,String release,String refreshing,String done){
+        if(mRefreshHeader != null){
+
+            if(!TextUtils.isEmpty(normal)){
+                mRefreshHeader.setStatusNorml(normal);
+            }
+
+            if(!TextUtils.isEmpty(release)){
+                mRefreshHeader.setStatusRelease(release);
+            }
+
+            if(!TextUtils.isEmpty(refreshing)){
+                mRefreshHeader.setStatusRefreshing(refreshing);
+            }
+
+            if(!TextUtils.isEmpty(done)){
+                mRefreshHeader.setStatusDone(done);
+            }
         }
     }
 
