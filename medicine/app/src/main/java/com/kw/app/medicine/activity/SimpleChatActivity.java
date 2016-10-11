@@ -2,6 +2,7 @@ package com.kw.app.medicine.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
@@ -12,13 +13,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.google.gson.Gson;
+import com.kw.app.commonlib.base.AppConstant;
 import com.kw.app.commonlib.utils.AppLogUtil;
 import com.kw.app.commonlib.utils.CommonUtil;
+import com.kw.app.commonlib.utils.PhotoUtils;
 import com.kw.app.commonlib.utils.PreferenceUtil;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.adapter.SimpleChatAdapter;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.event.RefreshChatEvent;
+import com.kw.app.photolib.activity.ImageSelectorActivity;
 import com.kw.app.widget.activity.BaseActivity;
 import com.kw.app.widget.view.xrecyclerview.ProgressStyle;
 import com.kw.app.widget.view.xrecyclerview.XRecyclerView;
@@ -26,6 +30,7 @@ import com.kw.app.widget.view.xrecyclerview.XRecyclerView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,6 +42,7 @@ import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
+import io.rong.message.ImageMessage;
 import io.rong.message.TextMessage;
 
 /**
@@ -188,6 +194,13 @@ public class SimpleChatActivity extends BaseActivity {
         btn_chat_send.setBackgroundResource(R.drawable.btn_disable);
         btn_chat_send.setEnabled(false);
 
+        btn_chat_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageSelectorActivity.start(SimpleChatActivity.this,1,ImageSelectorActivity.MODE_SINGLE,true,true,false,null);
+            }
+        });
+
     }
 
     @Override
@@ -198,6 +211,19 @@ public class SimpleChatActivity extends BaseActivity {
     @Override
     public int getLayoutResource() {
         return R.layout.activity_simple_chat;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {//从选择图片页面返回
+            if (requestCode == AppConstant.ActivityResult.Request_Image) {
+                //拿到返回的图片路径
+                ArrayList<String> images = (ArrayList<String>) data.getSerializableExtra(ImageSelectorActivity.REQUEST_OUTPUT);
+                if(images != null && images.size()>0){
+                    sendImageMessage(images.get(0));
+                }
+            }
+        }
     }
 
 
@@ -235,7 +261,6 @@ public class SimpleChatActivity extends BaseActivity {
                 "", new IRongCallback.ISendMessageCallback() {
                     @Override
                     public void onAttached(Message message) {
-                        //保存数据库成功 那么就应该显示出来
                         //发送成功 更新
                         adapter.addOne(message);
                         edit_msg.setText("");
@@ -256,13 +281,60 @@ public class SimpleChatActivity extends BaseActivity {
     }
 
     /**
-     * 发送本地图片地址
+     * 发送图片
      */
-    public void sendImageMessage(){
+    public void sendImageMessage(String imagepath){
+        File image = new File(imagepath);
+        ImageMessage imgMsg = ImageMessage.obtain(null, Uri.fromFile(image));
 
+        /**
+         * 发送图片消息。
+         * @param conversationType         会话类型。
+         * @param targetId                 会话目标 Id。根据不同的 conversationType，可能是用户 Id、讨论组 Id、群组 Id 或聊天室 Id。
+         * @param imgMsg                   消息内容。
+         * @param pushContent              接收方离线时需要显示的push消息内容。
+         * @param pushData                 接收方离线时需要在push消息中携带的非显示内容。
+         * @param SendImageMessageCallback 发送消息的回调。
+         */
+
+        Map<String,Object> map =new HashMap<>();
+        map.put("msgid", UUID.randomUUID().toString());//消息id
+        map.put("time", System.currentTimeMillis());//当前时间
+        map.put("scale", PhotoUtils.getImageWidthHeightSize(imagepath));//图片宽高比例
+        imgMsg.setExtra(new Gson().toJson(map));
+
+        RongIMClient.getInstance().sendImageMessage(Conversation.ConversationType.PRIVATE, target.getUserid(), imgMsg, "", "",
+                new RongIMClient.SendImageMessageCallback() {
+
+            @Override
+            public void onAttached(Message message) {
+                //保存数据库成功
+                //发送成功 更新
+                adapter.addOne(message);
+                scrollToBottom();
+            }
+
+            @Override
+            public void onError(Message message, RongIMClient.ErrorCode code) {
+                //发送失败
+                adapter.updateLastMessage(message);
+            }
+
+            @Override
+            public void onSuccess(Message message) {
+                //发送成功
+                adapter.updateLastMessage(message);
+            }
+
+            @Override
+            public void onProgress(Message message, int progress) {
+                //发送进度
+            }
+        });
     }
 
-    /**首次加载，可设置msg为null，下拉刷新的时候，默认取消息表的第一个msg作为刷新的起始时间点，默认按照消息时间的降序排列
+    /**
+     * 首次加载，可设置msg为null，下拉刷新的时候，默认取消息表的第一个msg作为刷新的起始时间点，默认按照消息时间的降序排列
      * @param msg
      */
     public void queryMessages(Message msg){

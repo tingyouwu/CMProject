@@ -1,19 +1,26 @@
 package com.kw.app.medicine.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kw.app.commonlib.utils.ImageLoaderUtil;
 import com.kw.app.commonlib.utils.PreferenceUtil;
+import com.kw.app.commonlib.utils.ScreenUtil;
 import com.kw.app.commonlib.utils.TimeUtil;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.widget.BaseRecyclerViewHolder;
 import com.kw.app.widget.adapter.BaseRecyclerViewMultiItemAdapter;
+import com.orhanobut.logger.Logger;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -88,8 +95,10 @@ public class SimpleChatAdapter extends BaseRecyclerViewMultiItemAdapter<Message>
                 handleReceiveTextMessage(helper,item);
                 break;
             case TYPE_SEND_IMAGE:
+                handleSendImageMessage(helper,item);
                 break;
             case TYPE_RECEIVER_IMAGE:
+                handleReceiveImageMessage(helper,item);
                 break;
             default:
                 break;
@@ -153,6 +162,52 @@ public class SimpleChatAdapter extends BaseRecyclerViewMultiItemAdapter<Message>
         TextMessage textMessage = (TextMessage)(msg.getContent());
         TextView content = helper.getView(R.id.tv_message);
         content.setText(textMessage.getContent());
+    }
+
+    /**
+     * @Decription 处理我发出去的文本信息
+     **/
+    private void handleSendImageMessage(BaseRecyclerViewHolder helper,Message msg){
+
+        ImageView iv_failed_resend = helper.getView(R.id.iv_fail_resend);
+        ImageView iv_picture = helper.getView(R.id.iv_picture);
+        ProgressBar pb_load = helper.getView(R.id.progress_load);
+
+        ImageMessage messagecontent = (ImageMessage) msg.getContent();
+
+        if(msg.getSentStatus()== Message.SentStatus.FAILED){
+            //发送失败
+            iv_failed_resend.setVisibility(View.VISIBLE);
+            pb_load.setVisibility(View.GONE);
+        }else if(msg.getSentStatus()== Message.SentStatus.SENDING){
+            //发送中
+            iv_failed_resend.setVisibility(View.GONE);
+            pb_load.setVisibility(View.VISIBLE);
+        }else if(msg.getSentStatus()== Message.SentStatus.RECEIVED || msg.getSentStatus()== Message.SentStatus.SENT
+                || msg.getSentStatus()== Message.SentStatus.READ || msg.getSentStatus()== Message.SentStatus.DESTROYED){
+            //对方已接收  已发送  对方已读  对方已销毁
+            iv_failed_resend.setVisibility(View.GONE);
+            pb_load.setVisibility(View.GONE);
+        }
+
+        if(!TextUtils.isEmpty(messagecontent.getLocalUri().toString())){
+            ImageLoaderUtil.load(mContext,messagecontent.getLocalUri().toString(),iv_picture);
+        }else if(!TextUtils.isEmpty(messagecontent.getRemoteUri().toString())){
+            ImageLoaderUtil.load(mContext,messagecontent.getRemoteUri().toString(),iv_picture);
+        }
+
+        iv_failed_resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    /**
+     * @Decription 处理别人发给我的图片信息
+     **/
+    private void handleReceiveImageMessage(BaseRecyclerViewHolder helper,Message msg){
     }
 
     /**
