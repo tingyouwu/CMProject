@@ -10,8 +10,9 @@
     <TextView
         android:id="@+id/tv_time"
         style="@style/style_text_white_small"
+        android:text=""
         android:padding="@dimen/margin_5"
-        android:background="@color/color_msg_system_time_bg"
+        android:textColor="@color/gray_font_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -30,23 +31,30 @@
             android:background="@mipmap/img_contact_default"
             android:scaleType="fitXY" />
 
-        <ImageView
-            android:id="@+id/iv_picture"
-            android:layout_width="120dp"
-            android:minHeight="120dp"
+        <LinearLayout
+            android:id="@+id/ll_picture"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_5"
             android:layout_toLeftOf="@id/iv_avatar"
-            android:background="@drawable/bg_chatroom_content_right"
-            android:scaleType="fitCenter"
-            android:maxWidth="150dip"
-            android:maxHeight="150dp"
             android:paddingLeft="2dp"
             android:paddingBottom="2dp"
             android:paddingTop="2dp"
-            android:paddingRight="10dp"
-            android:adjustViewBounds="true"
-            android:src="@mipmap/img_default_loading"/>
+            android:paddingRight="4dp"
+            android:background="@drawable/bg_chatroom_content_right">
+
+            <ImageView
+                android:id="@+id/iv_picture"
+                android:layout_width="120dp"
+                android:background="@color/red"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_5"
+                android:layout_toLeftOf="@id/iv_avatar"
+                android:scaleType="centerInside"
+                android:maxHeight="150dp"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/img_default_loading"/>
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/iv_fail_resend"
@@ -54,7 +62,7 @@
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/iv_picture"
+            android:layout_toLeftOf="@id/ll_picture"
             android:clickable="true"
             android:scaleType="fitCenter"
             android:src="@drawable/btn_chat_fail_resend"
@@ -67,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/iv_picture"
+            android:layout_toLeftOf="@id/ll_picture"
             android:textSize="12sp"
             android:visibility="invisible" />
 
@@ -77,7 +85,7 @@
             android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/iv_picture"
+            android:layout_toLeftOf="@id/ll_picture"
             android:visibility="visible" />
     </RelativeLayout>
 
