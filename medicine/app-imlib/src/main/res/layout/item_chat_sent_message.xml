@@ -19,6 +19,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/height_40"
         android:paddingLeft="@dimen/margin_60"
         android:layout_marginRight="@dimen/margin_5"
         android:layout_marginTop="@dimen/margin_5" >
@@ -42,13 +43,13 @@
             android:layout_toLeftOf="@id/iv_avatar"
             android:background="@drawable/bg_chatroom_content_right"
             android:lineSpacingExtra="@dimen/margin_2"
-            android:minHeight="@dimen/height_30"
+            android:minHeight="@dimen/height_40"
             android:minWidth="80dp"
             android:text=""
-            android:paddingTop="@dimen/margin_3"
-            android:paddingBottom="@dimen/margin_3"
+            android:paddingTop="@dimen/margin_5"
+            android:paddingBottom="@dimen/margin_5"
             android:paddingLeft="@dimen/margin_5"
-            android:paddingRight="@dimen/margin_15" />
+            android:paddingRight="@dimen/margin_10" />
 
         <ImageView
             android:id="@+id/iv_fail_resend"

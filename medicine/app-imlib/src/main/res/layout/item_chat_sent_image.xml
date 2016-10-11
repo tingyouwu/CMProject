@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/iv_avatar"
-            android:layout_width="@dimen/height_50"
-            android:layout_height="@dimen/height_50"
+            android:layout_width="@dimen/height_40"
+            android:layout_height="@dimen/height_40"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:background="@mipmap/img_contact_default"
@@ -41,10 +41,10 @@
             android:scaleType="fitCenter"
             android:maxWidth="150dip"
             android:maxHeight="150dp"
-            android:paddingLeft="5dp"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="2dp"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:paddingRight="10dp"
             android:adjustViewBounds="true"
             android:src="@mipmap/img_default_loading"/>
 

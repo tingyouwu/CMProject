@@ -43,7 +43,7 @@
             android:lineSpacingExtra="@dimen/margin_2"
             android:clickable="true"
             android:focusable="true"
-            android:minHeight="@dimen/height_30"
+            android:minHeight="@dimen/height_40"
             android:minWidth="80dp"
             android:paddingTop="@dimen/margin_3"
             android:paddingRight="@dimen/margin_3"

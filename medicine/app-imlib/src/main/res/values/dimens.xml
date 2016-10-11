@@ -23,7 +23,7 @@
     <dimen name="height_60">60dip</dimen>
     <dimen name="height_message">75dp</dimen>
     <dimen name="height_70">70dp</dimen>
-
+    <dimen name="margin_1">1dp</dimen>
     <dimen name="margin_2">2dp</dimen>
     <dimen name="margin_3">3dp</dimen>
     <dimen name="margin_5">5dp</dimen>
