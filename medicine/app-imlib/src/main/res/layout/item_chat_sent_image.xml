@@ -28,7 +28,7 @@
             android:layout_height="@dimen/height_40"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:background="@mipmap/img_contact_default"
+            android:src="@mipmap/img_contact_default"
             android:scaleType="fitXY" />
 
         <LinearLayout
@@ -40,18 +40,15 @@
             android:paddingBottom="2dp"
             android:paddingTop="2dp"
             android:paddingRight="4dp"
+            android:layout_marginRight="@dimen/margin_5"
             android:background="@drawable/bg_chatroom_content_right">
 
             <ImageView
                 android:id="@+id/iv_picture"
                 android:layout_width="120dp"
-                android:background="@color/red"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/margin_5"
                 android:layout_toLeftOf="@id/iv_avatar"
-                android:scaleType="centerInside"
-                android:maxHeight="150dp"
-                android:adjustViewBounds="true"
                 android:src="@mipmap/img_default_loading"/>
 
         </LinearLayout>

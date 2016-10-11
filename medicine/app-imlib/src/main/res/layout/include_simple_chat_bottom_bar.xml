@@ -43,8 +43,9 @@
             android:layout_width="@dimen/height_50"
             android:layout_height="@dimen/height_35"
             android:text="发送"
-            android:background="@drawable/login_press"
-            android:textColor="@color/white"
+            android:background="@drawable/btn_disable"
+            android:textColor="@color/gray_font_3"
+            android:enabled="false"
             android:textSize="@dimen/text_size_small"
             android:gravity="center"/>
     </LinearLayout>

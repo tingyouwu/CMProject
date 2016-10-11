@@ -18,7 +18,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_5"
+        android:layout_marginLeft="@dimen/margin_10"
         android:layout_marginRight="@dimen/margin_50"
         android:layout_marginTop="@dimen/margin_5" >
 
@@ -44,11 +44,11 @@
             android:clickable="true"
             android:focusable="true"
             android:minHeight="@dimen/height_40"
-            android:minWidth="80dp"
+            android:minWidth="50dp"
             android:paddingTop="@dimen/margin_3"
             android:paddingRight="@dimen/margin_3"
             android:paddingBottom="@dimen/margin_3"
-            android:paddingLeft="@dimen/margin_20"/>
+            android:paddingLeft="@dimen/margin_10"/>
 
     </RelativeLayout>
 
