@@ -5,7 +5,9 @@
     <!-- 填充的颜色 -->
     <solid android:color="#e6e6e6" />
 	
-    <stroke android:color="#e6e6e6" />
+    <stroke
+        android:width="0.5dip"
+        android:color="#aaaaaa" />
 
     <!-- 设置矩形的四个角为弧形 -->
     <!-- android:radius 弧形的半径 -->
