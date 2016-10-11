@@ -103,7 +103,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan"/>
 
         <activity
-            android:name=".activity.ChatActivity"
+            android:name=".activity.SimpleChatActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
     </application>

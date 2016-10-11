@@ -3,19 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <FrameLayout
-        android:id="@+id/de_frm_backgroud"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/de_img_backgroud"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@mipmap/login_background" />
-    </FrameLayout>
-
     <RelativeLayout
         android:id="@+id/rl_content"
         android:layout_width="match_parent"

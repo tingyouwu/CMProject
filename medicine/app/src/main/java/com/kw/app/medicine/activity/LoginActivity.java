@@ -44,8 +44,6 @@ public class LoginActivity extends BaseActivity<UserLoginPresenter> implements I
     LoginInputView mloginInputview;
     @Bind(R.id.login_version)
     TextView tv_version;
-    @Bind(R.id.de_img_backgroud)
-    ImageView mImg_Background;
     @Bind(R.id.lv_loading)
     LoadingView mLoadingView;
     @Bind(R.id.rl_content)

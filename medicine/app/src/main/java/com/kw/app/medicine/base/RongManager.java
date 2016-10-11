@@ -16,6 +16,7 @@ import com.kw.app.medicine.data.local.VoiceReadStatusDALEx;
 import com.kw.app.medicine.event.RefreshChatEvent;
 import com.kw.app.medicine.event.RefreshEvent;
 import com.kw.app.medicine.event.RefreshMessageTabEvent;
+import com.kw.app.widget.ICallBack;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 import io.rong.imlib.AnnotationNotFoundException;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
 import io.rong.message.ContactNotificationMessage;
