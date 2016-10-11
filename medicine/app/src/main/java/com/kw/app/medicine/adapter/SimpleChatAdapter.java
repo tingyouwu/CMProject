@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -16,12 +15,13 @@ import com.kw.app.commonlib.utils.TimeUtil;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.UserDALEx;
+import com.kw.app.photolib.activity.ImagePagerActivity;
+import com.kw.app.photolib.bean.ImageSizeBean;
 import com.kw.app.widget.BaseRecyclerViewHolder;
 import com.kw.app.widget.adapter.BaseRecyclerViewMultiItemAdapter;
-import com.orhanobut.logger.Logger;
-
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
@@ -170,10 +170,10 @@ public class SimpleChatAdapter extends BaseRecyclerViewMultiItemAdapter<Message>
     private void handleSendImageMessage(BaseRecyclerViewHolder helper,Message msg){
 
         ImageView iv_failed_resend = helper.getView(R.id.iv_fail_resend);
-        ImageView iv_picture = helper.getView(R.id.iv_picture);
+        final ImageView iv_picture = helper.getView(R.id.iv_picture);
         ProgressBar pb_load = helper.getView(R.id.progress_load);
 
-        ImageMessage messagecontent = (ImageMessage) msg.getContent();
+        final ImageMessage messagecontent = (ImageMessage) msg.getContent();
 
         if(msg.getSentStatus()== Message.SentStatus.FAILED){
             //发送失败
@@ -190,6 +190,40 @@ public class SimpleChatAdapter extends BaseRecyclerViewMultiItemAdapter<Message>
             pb_load.setVisibility(View.GONE);
         }
 
+        Double scale = 0.0;
+
+        try {
+            String extra = messagecontent.getExtra();
+            if(!TextUtils.isEmpty(extra)){
+                JSONObject json =new JSONObject(extra);
+                scale = json.getDouble("scale");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ViewGroup.LayoutParams lp = iv_picture.getLayoutParams();
+        int width,height;
+        if(scale>1.0){
+            //宽>高
+            width = ScreenUtil.dp2px(mContext,150);
+            height = (int)(width / scale);
+        }else if(scale<1.0){
+            //高大于宽
+            width = ScreenUtil.dp2px(mContext,100);
+            height = (int)(width / scale);
+        }else {
+            //宽等于高
+            width = ScreenUtil.dp2px(mContext,100);
+            height = width;
+        }
+
+        lp.width = width;
+        lp.height = height;
+
+        iv_picture.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        iv_picture.setLayoutParams(lp);
+
         if(!TextUtils.isEmpty(messagecontent.getLocalUri().toString())){
             ImageLoaderUtil.load(mContext,messagecontent.getLocalUri().toString(),iv_picture);
         }else if(!TextUtils.isEmpty(messagecontent.getRemoteUri().toString())){
@@ -202,12 +236,82 @@ public class SimpleChatAdapter extends BaseRecyclerViewMultiItemAdapter<Message>
 
             }
         });
+
+        iv_picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String> listOne = new ArrayList<String>();
+                if(!TextUtils.isEmpty(messagecontent.getLocalUri().toString())){
+                    listOne.add(messagecontent.getLocalUri().toString());
+                }else if(!TextUtils.isEmpty(messagecontent.getRemoteUri().toString())){
+                    listOne.add(messagecontent.getRemoteUri().toString());
+                }
+                ImageSizeBean imageSize = new ImageSizeBean(v.getMeasuredWidth(),v.getMeasuredHeight());
+                ImagePagerActivity.startImagePagerActivity(mContext, listOne, 0, imageSize);
+            }
+        });
+
     }
 
     /**
      * @Decription 处理别人发给我的图片信息
      **/
     private void handleReceiveImageMessage(BaseRecyclerViewHolder helper,Message msg){
+        ImageView iv_picture = helper.getView(R.id.iv_picture);
+        ProgressBar pb_load = helper.getView(R.id.progress_load);
+        final ImageMessage messagecontent = (ImageMessage) msg.getContent();
+
+        Double scale = 0.0;
+        try {
+            String extra = messagecontent.getExtra();
+            if(!TextUtils.isEmpty(extra)){
+                JSONObject json =new JSONObject(extra);
+                scale = json.getDouble("scale");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ViewGroup.LayoutParams lp = iv_picture.getLayoutParams();
+        int width,height;
+        if(scale>1.0){
+            //宽>高
+            width = ScreenUtil.dp2px(mContext,150);
+            height = (int)(width / scale);
+        }else if(scale<1.0){
+            //高大于宽
+            width = ScreenUtil.dp2px(mContext,100);
+            height = (int)(width / scale);
+        }else {
+            //宽等于高
+            width = ScreenUtil.dp2px(mContext,100);
+            height = width;
+        }
+
+        lp.width = width;
+        lp.height = height;
+
+        iv_picture.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        iv_picture.setLayoutParams(lp);
+
+        if(!TextUtils.isEmpty(messagecontent.getRemoteUri().toString())){
+            ImageLoaderUtil.load(mContext,messagecontent.getRemoteUri().toString(),iv_picture);
+        }
+
+        iv_picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String> listOne = new ArrayList<String>();
+                if(!TextUtils.isEmpty(messagecontent.getRemoteUri().toString())){
+                    listOne.add(messagecontent.getRemoteUri().toString());
+                }else{
+                    return;
+                }
+                ImageSizeBean imageSize = new ImageSizeBean(v.getMeasuredWidth(),v.getMeasuredHeight());
+                ImagePagerActivity.startImagePagerActivity(mContext, listOne, 0, imageSize);
+            }
+        });
+
     }
 
     /**

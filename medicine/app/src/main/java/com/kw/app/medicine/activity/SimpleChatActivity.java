@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -111,7 +112,6 @@ public class SimpleChatActivity extends BaseActivity {
         initListener();
         initSwipeLayout();
         initBottomView();
-        clearMessagesUnread();
     }
 
     /**
@@ -123,6 +123,7 @@ public class SimpleChatActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 CommonUtil.keyboardControl(SimpleChatActivity.this,false,edit_msg);
+                clearMessagesUnread();
                 finish();
             }
         });
@@ -189,10 +190,6 @@ public class SimpleChatActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-
-        btn_chat_send.setTextColor(getResources().getColor(R.color.gray_font_3));
-        btn_chat_send.setBackgroundResource(R.drawable.btn_disable);
-        btn_chat_send.setEnabled(false);
 
         btn_chat_pic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -305,7 +302,6 @@ public class SimpleChatActivity extends BaseActivity {
 
         RongIMClient.getInstance().sendImageMessage(Conversation.ConversationType.PRIVATE, target.getUserid(), imgMsg, "", "",
                 new RongIMClient.SendImageMessageCallback() {
-
             @Override
             public void onAttached(Message message) {
                 //保存数据库成功
@@ -417,10 +413,12 @@ public class SimpleChatActivity extends BaseActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        CommonUtil.keyboardControl(this,false,edit_msg);
-        clearMessagesUnread();
-        super.onDestroy();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            clearMessagesUnread();
+            CommonUtil.keyboardControl(this,false,edit_msg);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void clearMessagesUnread(){
