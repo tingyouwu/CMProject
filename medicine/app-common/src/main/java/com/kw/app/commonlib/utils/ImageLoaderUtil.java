@@ -59,7 +59,6 @@ public class ImageLoaderUtil {
         Glide.with(context)
                 .load(resId)
                 .bitmapTransform(new CropCircleTransformation(context))
-                .placeholder(R.mipmap.img_default_loading)
                 .error(R.mipmap.img_error_fail)
                 .into(view);
     }
@@ -85,7 +84,7 @@ public class ImageLoaderUtil {
     public static void load(Context context, String url, ImageView view) {
         Glide.with(context)
                 .load(url)
-                .placeholder(R.mipmap.img_default_loading)
+                .fitCenter()
                 .error(R.mipmap.img_error_fail)
                 .into(view);
     }
@@ -100,8 +99,8 @@ public class ImageLoaderUtil {
         if(TextUtils.isEmpty(url))return;
         Glide.with(context)
                 .load(url)
-                .bitmapTransform(new CropCircleTransformation(context))
                 .placeholder(R.mipmap.img_default_loading)
+                .bitmapTransform(new CropCircleTransformation(context))
                 .error(R.mipmap.img_error_fail)
                 .into(view);
     }
