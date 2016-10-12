@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.kw.app.bmoblib.annotation.BmobExceptionCode;
+import com.kw.app.commonlib.utils.FileUtils;
 import com.kw.app.commonlib.utils.luban.Luban;
 import com.kw.app.commonlib.utils.luban.OnCompressListener;
 import com.kw.app.medicine.data.bmob.UserBmob;
@@ -60,6 +61,7 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
             public void onSuccess(List<BmobFile> list, List<String> urls) {
                 if (urls.size() == 1) {//如果数量相等，则代表文件上传完成
                     data.setLogourl(urls.get(0));
+                    FileUtils.deleteFile(compresspath);
                     signUpToBmob(context,data,callBack);
                 }
             }
@@ -70,6 +72,7 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
 
             @Override
             public void onError(int code, String msg) {
+                FileUtils.deleteFile(compresspath);
                 callBack.onFaild(BmobExceptionCode.match(code));
             }
         });
@@ -83,7 +86,7 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
             public void done(UserBmob userBmob, BmobException e) {
                 if(e==null){
                     //注册成功之后设置一下当前数据库名字
-                    OrmModuleManager.getInstance().setCurrentDBName(userBmob.getObjectId()+".db");
+                    OrmModuleManager.getInstance().setCurrentDBName(userBmob.getObjectId());
                     userBmob.save(userBmob);
                     callBack.onSuccess(userBmob.getObjectId());
                 }else{

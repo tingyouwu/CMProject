@@ -185,7 +185,7 @@ public class LoginActivity extends BaseActivity<UserLoginPresenter> implements I
     @Override
     public void finishActivity() {
         //登录成功之后设置一下当前数据库名字
-        OrmModuleManager.getInstance().setCurrentDBName(PreferenceUtil.getInstance().getLastAccount() + ".db");
+        OrmModuleManager.getInstance().setCurrentDBName(PreferenceUtil.getInstance().getLastAccount());
         MainActivity.startMainActivity(LoginActivity.this);
         finish();
     }

@@ -52,7 +52,7 @@ public class UserRegisterActivity extends BaseActivity<UserRegisterPresenter> im
     @OnClick(R.id.img_camera)
     void selectHeaderIcon(){
         //获取头像
-        ImageSelectorActivity.start(UserRegisterActivity.this,1,ImageSelectorActivity.MODE_SINGLE,true,true,false,null);
+        ImageSelectorActivity.start(UserRegisterActivity.this,1,ImageSelectorActivity.MODE_SINGLE,true,true,true,null);
     }
 
     @OnClick(R.id.btn_sign)

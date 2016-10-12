@@ -55,7 +55,9 @@
 
         <activity
             android:name=".activity.UserRegisterActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.UserEmailResetPSWActivity"
@@ -104,7 +106,9 @@
 
         <activity
             android:name=".activity.SimpleChatActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
 
     </application>
 

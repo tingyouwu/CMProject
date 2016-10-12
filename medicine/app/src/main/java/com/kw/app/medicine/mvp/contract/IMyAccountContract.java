@@ -21,6 +21,6 @@ public interface IMyAccountContract {
         void dismissLoading(OnDismissCallbackListener callback);
         boolean checkNet();
         void showNoNet();
-        //void finishActivity(String userid);
+        void updateIcon(String path);
     }
 }

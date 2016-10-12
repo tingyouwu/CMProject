@@ -36,8 +36,6 @@ public class MySelfFragment extends BaseFragment implements View.OnClickListener
     @Bind(R.id.about_us)
     HomeItemView mAboutUs;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

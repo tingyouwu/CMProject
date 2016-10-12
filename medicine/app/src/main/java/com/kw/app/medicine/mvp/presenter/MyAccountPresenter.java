@@ -2,17 +2,12 @@ package com.kw.app.medicine.mvp.presenter;
 
 import android.content.Context;
 import android.net.Uri;
-import android.widget.ImageView;
-
 import com.kw.app.commonlib.mvp.presenter.BasePresenter;
-import com.kw.app.commonlib.utils.ImageLoaderUtil;
-import com.kw.app.commonlib.utils.PreferenceUtil;
-import com.kw.app.medicine.R;
+import com.kw.app.commonlib.utils.FileUtils;
 import com.kw.app.medicine.mvp.contract.IMyAccountContract;
 import com.kw.app.medicine.mvp.model.MyAccountModel;
 import com.kw.app.widget.ICallBack;
 import com.kw.app.widget.view.sweetdialog.OnDismissCallbackListener;
-import com.orhanobut.logger.Logger;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
@@ -26,23 +21,20 @@ public class MyAccountPresenter extends BasePresenter<IMyAccountContract.IMyAcco
         mMyAccountModel = new MyAccountModel();
     }
 
-    public void updateHeadImage(final Context context, final Uri uri, final ImageView mHeadView){
+    public void updateHeadImage(final Context context, final Uri uri){
         if(!mView.checkNet()){
             mView.showNoNet();
             return;
         }
         mView.showLoading("请稍候，正在更新中...");
-
         mMyAccountModel.updateHeadImage(context, uri,new ICallBack<String>() {
             @Override
             public void onSuccess(final String bomburi) {
                 mView.dismissLoading(new OnDismissCallbackListener("头像更新成功") {
                     @Override
                     public void onCallback() {
-                        Logger.d("KMA ...uri:"+uri.getPath());
-                        Logger.d("KMA ...bomburi:"+bomburi);
-
-                        ImageLoaderUtil.loadCircle(context, PreferenceUtil.getInstance().getLogoUrl(), R.mipmap.icon_launcher,mHeadView);
+                        FileUtils.deleteFile(uri.getPath());
+                        mView.updateIcon(bomburi);
                     }
                 });
             }

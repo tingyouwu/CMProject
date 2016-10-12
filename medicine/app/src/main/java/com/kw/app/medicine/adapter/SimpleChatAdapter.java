@@ -246,8 +246,7 @@ public class SimpleChatAdapter extends BaseRecyclerViewMultiItemAdapter<Message>
                 }else if(!TextUtils.isEmpty(messagecontent.getRemoteUri().toString())){
                     listOne.add(messagecontent.getRemoteUri().toString());
                 }
-                ImageSizeBean imageSize = new ImageSizeBean(v.getMeasuredWidth(),v.getMeasuredHeight());
-                ImagePagerActivity.startImagePagerActivity(mContext, listOne, 0, imageSize);
+                ImagePagerActivity.startImagePagerActivity(mContext, listOne, 0);
             }
         });
 
@@ -307,8 +306,7 @@ public class SimpleChatAdapter extends BaseRecyclerViewMultiItemAdapter<Message>
                 }else{
                     return;
                 }
-                ImageSizeBean imageSize = new ImageSizeBean(v.getMeasuredWidth(),v.getMeasuredHeight());
-                ImagePagerActivity.startImagePagerActivity(mContext, listOne, 0, imageSize);
+                ImagePagerActivity.startImagePagerActivity(mContext, listOne, 0);
             }
         });
 
