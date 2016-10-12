@@ -30,7 +30,7 @@ public class OrmModuleManager {
 	 * @param dbName 数据库名字
 	 **/
 	public void setCurrentDBName(String dbName){
-		this.xtion_dbname = dbName;
+		this.xtion_dbname = dbName + ".db";
 	}
 	/**
 	 * @Decription 初始化Orm缓存（必须在Application里面调用）
