@@ -21,10 +21,10 @@ public class FileUtils {
     private static final int MB = 1024 * 1024;//1MB
 
     public static File createCameraFile(Context context) {
-        return createMediaFile(context, AppConstant.CAMERA_PATH);
+        return createMediaFile(AppConstant.CAMERA_PATH);
     }
     public static File createCropFile(Context context) {
-        return createMediaFile(context,AppConstant.CROP_PATH);
+        return createMediaFile(AppConstant.CROP_PATH);
     }
 
     /**
@@ -71,29 +71,66 @@ public class FileUtils {
         return file.exists();
     }
 
-    private static File createMediaFile(Context context,String parentPath){
-        if(!FileUtils.hasEnoughMemory()){
-
-        }
-
+    private static File createMediaFile(String parentPath){
         File temp = null;
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
         try {
-            File root = new File(AppConstant.CAMERA_PATH);
+            File root = new File(parentPath);
             if(!root.exists()){
                 root.mkdirs();
             }
 
-            File picFile = new File(AppConstant.CAMERA_PATH,timeStamp+POSTFIX);
+            File picFile = new File(parentPath,timeStamp+POSTFIX);
             if(!picFile.exists()){
                     picFile.createNewFile();
             }
-
             temp = picFile;
-
         } catch (IOException e) {
             e.printStackTrace();
         }
         return temp;
     }
+
+    /**
+     * 删除文件安全方式：
+     */
+    public static void deleteFile(String filepath){
+        deleteFile(new File(filepath));
+    }
+
+    /**
+     * 删除文件安全方式
+     */
+    public static void deleteFile(File file) {
+        if(file==null || !file.exists())return;
+        if (file.isFile()) {
+            deleteFileSafely(file);
+            return;
+        }
+        if (file.isDirectory()) {
+            File[] childFiles = file.listFiles();
+            if (childFiles == null || childFiles.length == 0) {
+                deleteFileSafely(file);
+                return;
+            }
+            for (int i = 0; i < childFiles.length; i++) {
+                deleteFile(childFiles[i]);
+            }
+            deleteFileSafely(file);
+        }
+    }
+
+    /**
+     * 安全删除文件.
+     */
+    private static boolean deleteFileSafely(File file) {
+        if (file != null) {
+            String tmpPath = file.getParent() + File.separator + System.currentTimeMillis();
+            File tmp = new File(tmpPath);
+            file.renameTo(tmp);
+            return tmp.delete();
+        }
+        return false;
+    }
+
 }

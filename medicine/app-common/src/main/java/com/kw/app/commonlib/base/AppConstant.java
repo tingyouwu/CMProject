@@ -33,6 +33,7 @@ public class AppConstant {
         public final static int Request_Image = 101;
         public final static int Request_Preview = 102;
         public final static int Request_Register = 103;
+        public final static int Request_Crop = 104;
     }
 
 }
