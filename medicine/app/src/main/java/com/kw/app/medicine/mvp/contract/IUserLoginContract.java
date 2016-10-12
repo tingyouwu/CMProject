@@ -23,9 +23,6 @@ public interface IUserLoginContract {
         boolean checkNet();
         void showNoNet();
         void finishActivity();
-        void showLoadingView(String loadmsg);
-        void dismissLoadingView();
-        void updateLoadingMsg(String msg);
         void showFailed(String msg);
     }
 

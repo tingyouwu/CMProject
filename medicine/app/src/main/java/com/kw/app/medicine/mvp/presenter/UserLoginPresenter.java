@@ -69,8 +69,6 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginContract.IUserLo
             mView.showNoNet();
             return;
         }
-
-        mView.showLoadingView("正在获取token中...");
         getTokenAuto(context,user);
     }
 
@@ -117,7 +115,6 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginContract.IUserLo
             @Override
             public void onResponse(int code, String body) {
                 if (code != 200) {
-                    mView.dismissLoadingView();
                     mView.showFailed(body);
                     return;
                 }
@@ -128,11 +125,9 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginContract.IUserLo
                     AppLogUtil.d("成功获取Token:"+token);
                 } catch (JSONException e) {
                     AppLogUtil.d("Token 解析失败!");
-                    mView.dismissLoadingView();
                     mView.showFailed("Token 解析失败!");
                     return;
                 }
-                mView.updateLoadingMsg("正在连接服务器...");
                 connectAuto(context,user,token);
             }
         });

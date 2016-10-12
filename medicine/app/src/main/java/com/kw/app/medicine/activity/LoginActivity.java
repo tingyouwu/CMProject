@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,7 +25,6 @@ import com.kw.app.medicine.mvp.presenter.UserLoginPresenter;
 import com.kw.app.medicine.widget.login.LoginInputView;
 import com.kw.app.ormlib.OrmModuleManager;
 import com.kw.app.widget.activity.BaseActivity;
-import com.kw.app.widget.view.loadingview.LoadingView;
 import com.tbruyelle.rxpermissions.RxPermissions;
 import java.util.List;
 
@@ -44,10 +44,10 @@ public class LoginActivity extends BaseActivity<UserLoginPresenter> implements I
     LoginInputView mloginInputview;
     @Bind(R.id.login_version)
     TextView tv_version;
-    @Bind(R.id.lv_loading)
-    LoadingView mLoadingView;
     @Bind(R.id.rl_content)
     RelativeLayout contentlayout;
+    @Bind(R.id.img_launch)
+    ImageView mImgLaunch;
 
     @OnClick(R.id.login_signup)
     void goToRegisterActivity(){
@@ -98,60 +98,46 @@ public class LoginActivity extends BaseActivity<UserLoginPresenter> implements I
             PreferenceUtil.getInstance().writePreferences(PreferenceUtil.IsFirstLogin,false);
         }
 
+        //点击登陆后做的事情
+        mloginInputview.setOnLoginAction(new LoginInputView.OnLoginActionListener() {
+            @Override
+            public void onLogin() {
+                CommonUtil.keyboardControl(LoginActivity.this, false, mloginInputview.getAccountInput());
+                if (submit()) {
+                    mPresenter.login(CMApplication.getInstance(),mloginInputview.getAccount().toString(), mloginInputview.getPassword().toString(), mloginInputview.isRememberPsw());
+                }
+            }
+        });
+
+        if(!TextUtils.isEmpty(logourl)){
+            ImageLoaderUtil.loadCircle(mloginIcon.getContext(),logourl,mloginIcon);
+        }
+        tv_version.setText("V"+ CommonUtil.getVersion(this)+"."+CommonUtil.getVersionCode(this));
+
+        if (name != null) {
+            mloginInputview.setAccount(name);
+            mloginInputview.setPassword(psw);
+            if (!TextUtils.isEmpty(psw)) {
+                mloginInputview.setIsRememberPsw(true);
+            } else {
+                mloginInputview.setIsRememberPsw(false);
+            }
+        } else {// 第一次使用，默认不记住密码
+            mloginInputview.setIsRememberPsw(false);
+        }
+
         if(isAutoLogin){//自动登录就调整到主页面
             UserBmob user = new UserBmob();
             user.setObjectId(userid);
             user.setUsername(name);
             user.setLogourl(logourl);
 
-            if(!TextUtils.isEmpty(logourl)){
-                ImageLoaderUtil.loadCircle(mloginIcon.getContext(),logourl,mloginIcon);
-            }
-            tv_version.setText("V"+ CommonUtil.getVersion(this)+"."+CommonUtil.getVersionCode(this));
-
-            if (name != null) {
-                mloginInputview.setAccount(name);
-                mloginInputview.setPassword(psw);
-                if (!TextUtils.isEmpty(psw)) {
-                    mloginInputview.setIsRememberPsw(true);
-                } else {
-                    mloginInputview.setIsRememberPsw(false);
-                }
-            } else {// 第一次使用，默认不记住密码
-                mloginInputview.setIsRememberPsw(false);
-            }
             contentlayout.setVisibility(View.GONE);
+            mImgLaunch.setVisibility(View.VISIBLE);
             mPresenter.loginAuto(LoginActivity.this,user);
         }else{
-            mLoadingView.setVisibility(View.GONE);
+            mImgLaunch.setVisibility(View.GONE);
             contentlayout.setVisibility(View.VISIBLE);
-            //点击登陆后做的事情
-            mloginInputview.setOnLoginAction(new LoginInputView.OnLoginActionListener() {
-                @Override
-                public void onLogin() {
-                    CommonUtil.keyboardControl(LoginActivity.this, false, mloginInputview.getAccountInput());
-                    if (submit()) {
-                        mPresenter.login(CMApplication.getInstance(),mloginInputview.getAccount().toString(), mloginInputview.getPassword().toString(), mloginInputview.isRememberPsw());
-                    }
-                }
-            });
-
-            if(!TextUtils.isEmpty(logourl)){
-                ImageLoaderUtil.loadCircle(mloginIcon.getContext(),logourl,mloginIcon);
-            }
-            tv_version.setText("V"+ CommonUtil.getVersion(this)+"."+CommonUtil.getVersionCode(this));
-
-            if (name != null) {
-                mloginInputview.setAccount(name);
-                mloginInputview.setPassword(psw);
-                if (!TextUtils.isEmpty(psw)) {
-                    mloginInputview.setIsRememberPsw(true);
-                } else {
-                    mloginInputview.setIsRememberPsw(false);
-                }
-            } else {// 第一次使用，默认不记住密码
-                mloginInputview.setIsRememberPsw(false);
-            }
         }
     }
 
@@ -186,27 +172,28 @@ public class LoginActivity extends BaseActivity<UserLoginPresenter> implements I
     public void finishActivity() {
         //登录成功之后设置一下当前数据库名字
         OrmModuleManager.getInstance().setCurrentDBName(PreferenceUtil.getInstance().getLastAccount());
-        MainActivity.startMainActivity(LoginActivity.this);
-        finish();
+        new Handler().postDelayed(new Runnable(){
+
+            public void run() {
+                MainActivity.startMainActivity(LoginActivity.this);
+                finish();
+            }
+
+        }, 500);
+
     }
 
     @Override
-    public void showLoadingView(String loadmsg) {
-        mLoadingView.withBtnEmptyEnnable(false)
-                .withBtnNoNetEnnable(false)
-                .withLoadingText(loadmsg)
-                .build();
-    }
-
-    @Override
-    public void dismissLoadingView() {
-        mLoadingView.setVisibility(View.GONE);
+    public void showNoNet() {
+        mImgLaunch.setVisibility(View.GONE);
         contentlayout.setVisibility(View.VISIBLE);
+        super.showNoNet();
     }
 
     @Override
-    public void updateLoadingMsg(String msg) {
-        mLoadingView.updateLoadMsg(msg);
+    public void showFailed(String msg) {
+        mImgLaunch.setVisibility(View.GONE);
+        contentlayout.setVisibility(View.VISIBLE);
+        super.showFailed(msg);
     }
-
 }

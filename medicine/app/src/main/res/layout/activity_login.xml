@@ -16,7 +16,7 @@
             android:layout_centerHorizontal="true"
             android:scaleType="centerCrop"
             android:layout_marginBottom="20dip"
-            android:layout_marginTop="60dp"/>
+            android:layout_marginTop="100dp"/>
 
         <com.kw.app.medicine.widget.login.LoginInputView
             android:id="@+id/login_inputview"
@@ -63,9 +63,12 @@
 
     </RelativeLayout>
 
-    <com.kw.app.widget.view.loadingview.LoadingView
-        android:id="@+id/lv_loading"
+    <ImageView
+        android:id="@+id/img_launch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:src="@mipmap/img_launch"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
 
 </RelativeLayout>
