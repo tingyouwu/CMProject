@@ -2,6 +2,7 @@ package com.kw.app.photolib.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.kw.app.commonlib.base.AppConstant;
 import com.kw.app.commonlib.mvp.presenter.BasePresenter;
 import com.kw.app.commonlib.utils.FileUtils;
+import com.kw.app.commonlib.utils.PhotoUtils;
 import com.kw.app.commonlib.utils.ScreenUtil;
 import com.kw.app.photolib.LocalMediaLoaderUtil;
 import com.kw.app.photolib.R;
@@ -28,6 +30,7 @@ import com.kw.app.widget.view.GridSpacingItemDecoration;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Decrition 图片选择界面
@@ -184,6 +187,10 @@ public class ImageSelectorActivity extends BaseActivity {
 
             @Override
             public void onTakePhoto() {
+                if(!FileUtils.hasEnoughMemory()){
+                    ImageSelectorActivity.this.showFailed("SD卡不够内存空间");
+                    return;
+                }
                 startCamera();
             }
 
@@ -192,7 +199,7 @@ public class ImageSelectorActivity extends BaseActivity {
                 if (enablePreview) {
                     startPreview(imageAdapter.getData(), position);
                 } else if (enableCrop) {
-//                    startCrop(media.getPath());
+                    startCrop(model.path);
                 } else {
                     onSelectDone(model.path);
                 }
@@ -248,11 +255,16 @@ public class ImageSelectorActivity extends BaseActivity {
                     updateState(images.size());
                 }
             }
-//            // on crop success
-//            else if (requestCode == ImageCropActivity.REQUEST_CROP) {//裁剪图片返回
-//                String path = data.getStringExtra(ImageCropActivity.OUTPUT_PATH);
-//                onSelectDone(path);
-//            }
+            else if (requestCode == AppConstant.ActivityResult.Request_Crop) {//裁剪图片返回
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                File tempfile = FileUtils.createCropFile(ImageSelectorActivity.this);
+                if(PhotoUtils.saveBitmap2file(bitmap,tempfile.getAbsolutePath())){
+                    //保存成功
+                    onSelectDone(tempfile.getAbsolutePath());
+                }else{
+                    showFailed("截图保存失败,请重试!");
+                }
+            }
         }
     }
 
@@ -294,8 +306,12 @@ public class ImageSelectorActivity extends BaseActivity {
         ImagePreviewActivity.startPreview(this, previewImages, imageAdapter.getSelectedImages(), maxSelectNum, position);
     }
 
+    /**
+     * @Decription 开始裁剪 调用系统截图工具
+     **/
     public void startCrop(String path) {
-//        ImageCropActivity.startCrop(this, path);
+        Uri uri = Uri.fromFile(new File(path));
+        PhotoUtils.cropSmallImage(ImageSelectorActivity.this,uri,AppConstant.ActivityResult.Request_Crop);
     }
 
     /**

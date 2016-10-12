@@ -32,7 +32,6 @@ public class ImagePagerActivity extends BaseActivity {
     ImageViewPager viewPager;
 
     private List<View> guideViewList = new ArrayList<>();
-    public ImageSizeBean imageSize;
     private int startPos;
     private ArrayList<String> imgUrls;
 
@@ -57,11 +56,9 @@ public class ImagePagerActivity extends BaseActivity {
 
         startPos = getIntent().getIntExtra(INTENT_POSITION, 0);
         imgUrls = getIntent().getStringArrayListExtra(INTENT_IMGURLS);
-        imageSize = (ImageSizeBean) getIntent().getSerializableExtra(INTENT_IMAGESIZE);
 
         ImagePagerAdapter mAdapter = new ImagePagerAdapter(this);
         mAdapter.setDatas(imgUrls);
-        mAdapter.setImageSize(imageSize);
         viewPager.setAdapter(mAdapter);
         viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -82,14 +79,12 @@ public class ImagePagerActivity extends BaseActivity {
         });
         viewPager.setCurrentItem(startPos);
         addGuideView(guideGroup, startPos, imgUrls);
-
     }
 
-    public static void startImagePagerActivity(Context context, List<String> imgUrls, int position, ImageSizeBean imageSize){
+    public static void startImagePagerActivity(Context context, List<String> imgUrls, int position){
         Intent intent = new Intent(context, ImagePagerActivity.class);
         intent.putStringArrayListExtra(INTENT_IMGURLS, new ArrayList<>(imgUrls));
         intent.putExtra(INTENT_POSITION, position);
-        intent.putExtra(INTENT_IMAGESIZE, imageSize);
         context.startActivity(intent);
     }
 

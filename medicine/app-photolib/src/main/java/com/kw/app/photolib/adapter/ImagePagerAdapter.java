@@ -39,9 +39,6 @@ public class ImagePagerAdapter extends PagerAdapter {
     private List<String> datas = new ArrayList<>();
     private LayoutInflater inflater;
     private Context context;
-    private ImageSizeBean imageSize;
-    private ImageView smallImageView = null;
-
     public ImagePagerAdapter(Context context){
         this.context = context;
         this.inflater = LayoutInflater.from(context);
@@ -105,16 +102,6 @@ public class ImagePagerAdapter extends PagerAdapter {
                 }
             });
 
-            if(imageSize!=null){
-                //预览imageView
-                smallImageView = new ImageView(context);
-                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(imageSize.getWidth(), imageSize.getHeight());
-                layoutParams.gravity = Gravity.CENTER;
-                smallImageView.setLayoutParams(layoutParams);
-                smallImageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                ((FrameLayout)view).addView(smallImageView);
-            }
-
             //loading
             final AVLoadingIndicatorView loading = new AVLoadingIndicatorView(context);
             loading.setIndicatorId(AVLoadingIndicatorView.LineSpinFadeLoader);
@@ -132,30 +119,20 @@ public class ImagePagerAdapter extends PagerAdapter {
                     .into(new GlideDrawableImageViewTarget(imageView) {
                         @Override
                         public void onLoadStarted(Drawable placeholder) {
-                            super.onLoadStarted(placeholder);
-                            if (smallImageView != null) {
-                                smallImageView.setVisibility(View.VISIBLE);
-                                Glide.with(context).load(imgurl).into(smallImageView);
-                            }
                             loading.setVisibility(View.VISIBLE);
+                            super.onLoadStarted(placeholder);
                         }
 
                         @Override
                         public void onLoadFailed(Exception e, Drawable errorDrawable) {
                             super.onLoadFailed(e, errorDrawable);
-                            if (smallImageView != null) {
-                                smallImageView.setVisibility(View.GONE);
-                            }
                             loading.setVisibility(View.GONE);
                         }
 
                         @Override
                         public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
-                            super.onResourceReady(resource, animation);
                             loading.setVisibility(View.GONE);
-                            if (smallImageView != null) {
-                                smallImageView.setVisibility(View.GONE);
-                            }
+                            super.onResourceReady(resource, animation);
                         }
                     });
 
@@ -178,8 +155,4 @@ public class ImagePagerAdapter extends PagerAdapter {
         if(datas != null )
             this.datas = datas;
     }
-    public void setImageSize(ImageSizeBean imageSize){
-        this.imageSize = imageSize;
-    }
-
 }
