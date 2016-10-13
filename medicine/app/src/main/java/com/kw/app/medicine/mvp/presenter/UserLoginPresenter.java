@@ -8,6 +8,7 @@ import com.kw.app.imlib.fakeserver.FakeServer;
 import com.kw.app.imlib.fakeserver.FakeUser;
 import com.kw.app.imlib.fakeserver.HttpUtil;
 import com.kw.app.medicine.data.bmob.UserBmob;
+import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IUserLoginContract;
 import com.kw.app.medicine.mvp.model.UserLoginModel;
 import com.kw.app.widget.ICallBack;
@@ -43,9 +44,9 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginContract.IUserLo
         }
 
         mView.showLoading("正在验证用户名...");
-        mUserLoginModel.login(context,name, psw, isAutoLogin,new ICallBack<UserBmob>() {
+        mUserLoginModel.login(context,name, psw, isAutoLogin,new ICallBack<UserDALEx>() {
             @Override
-            public void onSuccess(UserBmob user) {
+            public void onSuccess(UserDALEx user) {
                 AppLogUtil.d("验证账号密码成功");
                 mView.showLoading("正在获取token许可...");
                 getToken(context,user);
@@ -75,10 +76,10 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginContract.IUserLo
     /**
      * @Decription 客户端从融云服务器获取token令牌
      **/
-    private void getToken(final Context context, final UserBmob user){
+    private void getToken(final Context context, final UserDALEx user){
         FakeUser fakeuser = new FakeUser();
-        fakeuser.setUserid(user.getObjectId());
-        fakeuser.setUsername(user.getUsername());
+        fakeuser.setUserid(user.getUserid());
+        fakeuser.setUsername(user.getNickname());
         fakeuser.setUserlogo(user.getLogourl());
         FakeServer.getToken(fakeuser, new HttpUtil.OnResponse() {
             @Override
@@ -136,7 +137,7 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginContract.IUserLo
     /**
      * @Decription 连接到融云服务器
      **/
-    private void connect(final Context context, final UserBmob user, String token) {
+    private void connect(final Context context, final UserDALEx user, String token) {
             RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
                 @Override
                 public void onTokenIncorrect() {

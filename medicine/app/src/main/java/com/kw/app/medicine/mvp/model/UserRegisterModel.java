@@ -3,32 +3,32 @@ package com.kw.app.medicine.mvp.model;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.kw.app.bmoblib.annotation.BmobExceptionCode;
 import com.kw.app.commonlib.utils.FileUtils;
 import com.kw.app.commonlib.utils.luban.Luban;
 import com.kw.app.commonlib.utils.luban.OnCompressListener;
-import com.kw.app.medicine.data.bmob.UserBmob;
+import com.kw.app.medicine.base.BmobFileManager;
+import com.kw.app.medicine.base.BmobUserManager;
+import com.kw.app.medicine.base.IFileManager;
+import com.kw.app.medicine.base.IUserManager;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IUserRegisterContract;
 import com.kw.app.ormlib.OrmModuleManager;
 import com.kw.app.widget.ICallBack;
 
 import java.io.File;
-import java.util.List;
-
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UploadBatchListener;
 
 /**
  * @author wty
  */
 public class UserRegisterModel implements IUserRegisterContract.IUserRegisterModel {
 
+    private IUserManager userManager = BmobUserManager.getInstance();
+    private IFileManager fileManager;
+
     @Override
     public void register(final Context context, final UserDALEx user, final ICallBack<String> callBack) {
         if(!TextUtils.isEmpty(user.getLogourl())){
+            //压缩图片
             Luban.get().load(new File(user.getLogourl()))
                        .putGear(Luban.THIRD_GEAR)
                        .setCompressListener(new OnCompressListener() {
@@ -38,8 +38,8 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
 
                             @Override
                             public void onSuccess(File file) {
-                                // 压缩完毕
-                                signUp(context,file.getAbsolutePath(), user, callBack);
+                                // 压缩完毕就上传头像图片
+                                uploadFile(context,file.getAbsolutePath(), user, callBack);
                             }
 
                             @Override
@@ -48,50 +48,49 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
                             }
                         }).launch();
         }else{
-            signUpToBmob(context,user,callBack);
+            signUp(user,callBack);
         }
     }
 
     /**
-     * @Decription 注册
+     * @Decription 上传文件
      **/
-    private void signUp(final Context context, final String compresspath, final UserDALEx data, final ICallBack<String> callBack){
-        BmobFile.uploadBatch(new String[]{compresspath}, new UploadBatchListener() {
-            @Override
-            public void onSuccess(List<BmobFile> list, List<String> urls) {
-                if (urls.size() == 1) {//如果数量相等，则代表文件上传完成
-                    data.setLogourl(urls.get(0));
-                    FileUtils.deleteFile(compresspath);
-                    signUpToBmob(context,data,callBack);
-                }
-            }
+    private void uploadFile(final Context context, final String compresspath, final UserDALEx data, final ICallBack<String> callBack){
 
+        fileManager = BmobFileManager.getInstance();
+        fileManager.uploadFile(context, compresspath, new ICallBack<String>() {
             @Override
-            public void onProgress(int curIndex, int curPercent, int total, int totalPercent) {
-            }
-
-            @Override
-            public void onError(int code, String msg) {
+            public void onSuccess(String url) {
+                data.setLogourl(url);
+                //上传完头像后 删掉本地截图文件
                 FileUtils.deleteFile(compresspath);
-                callBack.onFaild(BmobExceptionCode.match(code));
+                signUp(data,callBack);
+            }
+
+            @Override
+            public void onFaild(String msg) {
+                FileUtils.deleteFile(compresspath);
+                callBack.onFaild(msg);
             }
         });
     }
 
-    private void signUpToBmob(Context context, UserDALEx data,final ICallBack<String> callBack){
-        final UserBmob bmob = new UserBmob();
-        bmob.setAnnotationField(data);
-        bmob.signUp(new SaveListener<UserBmob>() {
+    /**
+     * @Decription 注册用户
+     **/
+    private void signUp(UserDALEx user,final ICallBack<String> callBack){
+        userManager.register(user, new ICallBack<UserDALEx>() {
             @Override
-            public void done(UserBmob userBmob, BmobException e) {
-                if(e==null){
-                    //注册成功之后设置一下当前数据库名字
-                    OrmModuleManager.getInstance().setCurrentDBName(userBmob.getObjectId());
-                    userBmob.save(userBmob);
-                    callBack.onSuccess(userBmob.getObjectId());
-                }else{
-                    callBack.onFaild(e.getMessage());
-                }
+            public void onSuccess(UserDALEx user) {
+                //注册成功之后设置一下当前数据库名字
+                OrmModuleManager.getInstance().setCurrentDBName(user.getUserid());
+                user.saveOrUpdate();
+                callBack.onSuccess(user.getUserid());
+            }
+
+            @Override
+            public void onFaild(String msg) {
+                callBack.onFaild(msg);
             }
         });
     }

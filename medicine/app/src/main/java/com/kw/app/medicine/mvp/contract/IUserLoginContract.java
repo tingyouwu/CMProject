@@ -5,6 +5,7 @@ import android.content.Context;
 import com.kw.app.commonlib.mvp.model.IBaseModel;
 import com.kw.app.commonlib.mvp.view.IBaseView;
 import com.kw.app.medicine.data.bmob.UserBmob;
+import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.widget.ICallBack;
 import com.kw.app.widget.view.sweetdialog.OnDismissCallbackListener;
 
@@ -14,7 +15,7 @@ import com.kw.app.widget.view.sweetdialog.OnDismissCallbackListener;
 public interface IUserLoginContract {
 
     interface IUserLoginModel extends IBaseModel {
-        void login(Context context, String name, String psw, boolean isAutoLogin, ICallBack<UserBmob> callBack);
+        void login(Context context, String name, String psw, boolean isAutoLogin, ICallBack<UserDALEx> callBack);
     }
 
     interface IUserLoginView extends IBaseView {

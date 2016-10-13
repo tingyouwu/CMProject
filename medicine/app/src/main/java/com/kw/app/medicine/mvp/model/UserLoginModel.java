@@ -2,37 +2,33 @@ package com.kw.app.medicine.mvp.model;
 
 import android.content.Context;
 
-
 import com.kw.app.commonlib.utils.PreferenceUtil;
-import com.kw.app.medicine.data.bmob.UserBmob;
+import com.kw.app.medicine.base.BmobUserManager;
+import com.kw.app.medicine.base.IUserManager;
+import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IUserLoginContract;
 import com.kw.app.widget.ICallBack;
-
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
 
 /**
  * @author wty
  */
 public class UserLoginModel implements IUserLoginContract.IUserLoginModel {
 
+    private IUserManager userManager = BmobUserManager.getInstance();
+
     @Override
-    public void login(final Context context, final String name, final String psw, final boolean isAutoLogin, final ICallBack<UserBmob> callBack) {
-        final UserBmob bu2 = new UserBmob();
-        bu2.setUsername(name);
-        bu2.setPassword(psw);
-        //首先尝试用户名+密码登陆
-        bu2.login(new SaveListener<UserBmob>() {
+    public void login(final Context context, final String name, final String psw, final boolean isAutoLogin, final ICallBack<UserDALEx> callBack) {
+
+        userManager.login(context, name, psw, isAutoLogin, new ICallBack<UserDALEx>() {
+            @Override
+            public void onSuccess(UserDALEx user) {
+                callBack.onSuccess(user);
+                saveUserPreference(isAutoLogin,psw, user);
+            }
 
             @Override
-            public void done(UserBmob userBmob, BmobException e) {
-                if(e==null){
-                    callBack.onSuccess(userBmob);
-                    saveUserPreference(isAutoLogin,psw, BmobUser.getCurrentUser(UserBmob.class));
-                }else {
-                    callBack.onFaild(e.getMessage());
-                }
+            public void onFaild(String msg) {
+                callBack.onFaild(msg);
             }
         });
     }
@@ -40,10 +36,10 @@ public class UserLoginModel implements IUserLoginContract.IUserLoginModel {
     /**
      * @Decription 保存用户数据到preference
      **/
-    private void saveUserPreference(boolean isAutoLogin,String psw,UserBmob bmobUser){
-        PreferenceUtil.getInstance().writePreferences(PreferenceUtil.LastName, bmobUser.getUsername());
-        PreferenceUtil.getInstance().writePreferences(PreferenceUtil.LastAccount, bmobUser.getObjectId());
-        PreferenceUtil.getInstance().writePreferences(PreferenceUtil.LogoUrl, bmobUser.getLogourl());
+    private void saveUserPreference(boolean isAutoLogin,String psw,UserDALEx user){
+        PreferenceUtil.getInstance().writePreferences(PreferenceUtil.LastName, user.getNickname());
+        PreferenceUtil.getInstance().writePreferences(PreferenceUtil.LastAccount, user.getUserid());
+        PreferenceUtil.getInstance().writePreferences(PreferenceUtil.LogoUrl, user.getLogourl());
         if(isAutoLogin){
             PreferenceUtil.getInstance().writePreferences(PreferenceUtil.IsAutoLogin, true);
             PreferenceUtil.getInstance().writePreferences(PreferenceUtil.LastPassword,psw);

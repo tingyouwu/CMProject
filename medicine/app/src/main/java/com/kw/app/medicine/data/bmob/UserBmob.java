@@ -80,6 +80,22 @@ public class UserBmob extends BmobUser {
 		dalex.saveOrUpdate();
 	}
 
+	public UserDALEx convertToDALEx(final UserBmob bmob){
+		UserDALEx dalex = new UserDALEx();
+		dalex.setUserid(bmob.getObjectId());
+		dalex.setNickname(bmob.getUsername());
+		dalex.setEmail(bmob.getEmail());
+		dalex.setMobilePhoneNumber(bmob.getMobilePhoneNumber());
+		dalex.setAge(bmob.getAge());
+		dalex.setRole(bmob.getRole());
+		dalex.setPinyin(bmob.getPinyin());
+		dalex.setCreateAt(bmob.getCreatedAt());
+		dalex.setUpdateAt(bmob.getUpdatedAt());
+		dalex.setSex(bmob.getSex());
+		dalex.setLogourl(bmob.getLogourl());
+		return dalex;
+	}
+
 	public void save(final List<UserBmob> list){
 		List<UserDALEx> localdalex = bmobToLocal(list);
 		UserDALEx.get().saveOrUpdate(localdalex);
