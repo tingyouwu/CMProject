@@ -26,7 +26,7 @@ public class BmobFileManager implements IFileManager{
 
 
     @Override
-    public void uploadFile(Context context, String filepath, final ICallBack<String> callBack) {
+    public void uploadFile(Context context, String uploadname,String filepath, final ICallBack<String> callBack) {
         final BmobFile bmobFile = new BmobFile(new File(filepath));
         bmobFile.uploadblock(new UploadFileListener() {
             @Override

@@ -19,6 +19,6 @@ public interface IUserManager {
     /**
      * @Decription 登陆
      **/
-    void login(final Context context, final String name, final String psw, final boolean isAutoLogin, final ICallBack<UserDALEx> callBack);
+    void login(final Context context, final String name, final String psw,  final ICallBack<UserDALEx> callBack);
 
 }

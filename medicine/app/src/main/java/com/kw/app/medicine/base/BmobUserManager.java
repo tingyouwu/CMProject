@@ -41,7 +41,7 @@ public class BmobUserManager implements IUserManager{
     }
 
     @Override
-    public void login(Context context, String name, final String psw, final boolean isAutoLogin, final ICallBack<UserDALEx> callBack) {
+    public void login(Context context, String name, final String psw, final ICallBack<UserDALEx> callBack) {
         final UserBmob bu2 = new UserBmob();
         bu2.setUsername(name);
         bu2.setPassword(psw);

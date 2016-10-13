@@ -19,7 +19,7 @@ public class UserLoginModel implements IUserLoginContract.IUserLoginModel {
     @Override
     public void login(final Context context, final String name, final String psw, final boolean isAutoLogin, final ICallBack<UserDALEx> callBack) {
 
-        userManager.login(context, name, psw, isAutoLogin, new ICallBack<UserDALEx>() {
+        userManager.login(context, name, psw, new ICallBack<UserDALEx>() {
             @Override
             public void onSuccess(UserDALEx user) {
                 callBack.onSuccess(user);

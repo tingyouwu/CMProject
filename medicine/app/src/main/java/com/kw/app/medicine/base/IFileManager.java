@@ -13,6 +13,6 @@ public interface IFileManager {
     /**
      * @Decription 上传文件
      **/
-    void uploadFile(final Context context, final String filepath, final ICallBack<String> callBack);
+    void uploadFile(final Context context, final String uploadname,final String filepath, final ICallBack<String> callBack);
 
 }

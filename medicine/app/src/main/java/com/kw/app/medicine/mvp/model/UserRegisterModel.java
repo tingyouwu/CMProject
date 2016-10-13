@@ -13,6 +13,8 @@ import com.kw.app.medicine.mvp.contract.IUserRegisterContract;
 import com.kw.app.ormlib.OrmModuleManager;
 import com.kw.app.widget.ICallBack;
 
+import java.io.File;
+
 /**
  * @author wty
  */
@@ -50,7 +52,8 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
     private void uploadFile(final Context context, final String compresspath, final ICallBack<String> callBack){
 
         fileManager = BmobFileManager.getInstance();
-        fileManager.uploadFile(context, compresspath, new ICallBack<String>() {
+        File file = new File(compresspath);
+        fileManager.uploadFile(context, "head_"+ file.getName(),compresspath, new ICallBack<String>() {
             @Override
             public void onSuccess(String url) {
                 callBack.onSuccess(url);
