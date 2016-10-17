@@ -96,14 +96,8 @@ public class UserBmob extends BmobUser {
 		return dalex;
 	}
 
-	public void save(final List<UserBmob> list){
+	public List<UserDALEx> convert(final List<UserBmob> list){
 		List<UserDALEx> localdalex = bmobToLocal(list);
-		UserDALEx.get().saveOrUpdate(localdalex);
-	}
-
-	public List<UserDALEx> saveReturn(final List<UserBmob> list){
-		List<UserDALEx> localdalex = bmobToLocal(list);
-		UserDALEx.get().saveOrUpdate(localdalex);
 		return localdalex;
 	}
 

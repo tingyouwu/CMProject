@@ -3,12 +3,12 @@ package com.kw.app.medicine.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.kw.app.avcloudlib.AVCloudModuleManager;
 import com.kw.app.bmoblib.BmobModuleManager;
 import com.kw.app.commonlib.CommonModuleManager;
 import com.kw.app.commonlib.utils.CommonUtil;
 import com.kw.app.ormlib.OrmModuleManager;
 
-import io.rong.imlib.RongIMClient;
 
 public class CMApplication extends Application {
 
@@ -29,6 +29,7 @@ public class CMApplication extends Application {
 			BmobModuleManager.init(mApplication);
 			CommonModuleManager.init(mApplication);
 			OrmModuleManager.init(mApplication);
+			AVCloudModuleManager.init(mApplication);
 		}
 
 		/**

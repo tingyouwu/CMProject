@@ -1,10 +1,11 @@
-package com.kw.app.medicine.base;
+package com.kw.app.medicine.avcloud;
 
 import android.content.Context;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.SaveCallback;
+import com.kw.app.medicine.base.IFileManager;
 import com.kw.app.widget.ICallBack;
 
 import java.io.FileNotFoundException;

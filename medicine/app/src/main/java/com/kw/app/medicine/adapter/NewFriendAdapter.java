@@ -13,7 +13,7 @@ import com.kw.app.commonlib.utils.PreferenceUtil;
 import com.kw.app.imlib.messagecontent.CustomzeContactNotificationMessage;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.activity.FriendRequstActivity;
-import com.kw.app.medicine.base.BmobUserModel;
+import com.kw.app.medicine.bmob.BmobUserModel;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.NewFriendDALEx;
 import com.kw.app.widget.BaseRecyclerViewHolder;

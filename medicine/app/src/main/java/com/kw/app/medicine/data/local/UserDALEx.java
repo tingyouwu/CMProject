@@ -18,6 +18,10 @@ public class UserDALEx extends SqliteBaseDALEx {
 	public static final int User_Not_Doctor = 0;//非医生
 	public static final String PINYIN = "pinyin";
 	public static final String USERNAME = "username";
+	public static final String SEX = "sex";
+	public static final String AGE = "age";
+	public static final String ROLE = "role";
+	public static final String LOGOURL = "logourl";
 
 	@DatabaseField(primaryKey = true,Type = FieldType.VARCHAR)
 	private String userid;

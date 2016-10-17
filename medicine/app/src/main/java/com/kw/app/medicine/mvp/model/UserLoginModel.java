@@ -3,7 +3,7 @@ package com.kw.app.medicine.mvp.model;
 import android.content.Context;
 
 import com.kw.app.commonlib.utils.PreferenceUtil;
-import com.kw.app.medicine.base.BmobUserManager;
+import com.kw.app.medicine.avcloud.AVUserManager;
 import com.kw.app.medicine.base.IUserManager;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IUserLoginContract;
@@ -14,7 +14,7 @@ import com.kw.app.widget.ICallBack;
  */
 public class UserLoginModel implements IUserLoginContract.IUserLoginModel {
 
-    private IUserManager userManager = BmobUserManager.getInstance();
+    private IUserManager userManager = AVUserManager.getInstance();
 
     @Override
     public void login(final Context context, final String name, final String psw, final boolean isAutoLogin, final ICallBack<UserDALEx> callBack) {

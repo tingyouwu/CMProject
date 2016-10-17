@@ -3,6 +3,7 @@ package com.kw.app.commonlib.utils;
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
+import android.text.TextUtils;
 
 import com.kw.app.commonlib.base.AppConstant;
 
@@ -95,6 +96,7 @@ public class FileUtils {
      * 删除文件安全方式：
      */
     public static void deleteFile(String filepath){
+        if(TextUtils.isEmpty(filepath))return;
         deleteFile(new File(filepath));
     }
 

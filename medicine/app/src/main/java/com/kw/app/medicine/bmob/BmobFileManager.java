@@ -1,7 +1,8 @@
-package com.kw.app.medicine.base;
+package com.kw.app.medicine.bmob;
 
 import android.content.Context;
 
+import com.kw.app.medicine.base.IFileManager;
 import com.kw.app.widget.ICallBack;
 
 import java.io.File;
@@ -14,7 +15,7 @@ import cn.bmob.v3.listener.UploadFileListener;
  * @author :wty
  * 管理文件
  */
-public class BmobFileManager implements IFileManager{
+public class BmobFileManager implements IFileManager {
 
     private static BmobFileManager ourInstance = new BmobFileManager();
 

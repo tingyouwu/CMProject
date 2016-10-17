@@ -30,9 +30,14 @@ public class TimeUtil {
             return null;
         }
     }
+
     public static String dateToString(Date date, String dateFormat) {
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
         return formatter.format(date);
+    }
+
+    public static String dateToString(Date date) {
+        return dateToString(date,FORMAT_DATE_TIME_SECOND);
     }
 
     public static String getChatTime(boolean hasYear,long timesamp) {

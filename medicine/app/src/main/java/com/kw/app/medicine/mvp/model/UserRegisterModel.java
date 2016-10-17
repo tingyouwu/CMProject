@@ -4,8 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.kw.app.commonlib.utils.FileUtils;
-import com.kw.app.medicine.base.BmobFileManager;
-import com.kw.app.medicine.base.BmobUserManager;
+import com.kw.app.medicine.avcloud.AVFileManager;
+import com.kw.app.medicine.avcloud.AVUserManager;
 import com.kw.app.medicine.base.IFileManager;
 import com.kw.app.medicine.base.IUserManager;
 import com.kw.app.medicine.data.local.UserDALEx;
@@ -20,8 +20,9 @@ import java.io.File;
  */
 public class UserRegisterModel implements IUserRegisterContract.IUserRegisterModel {
 
-    private IUserManager userManager = BmobUserManager.getInstance();
+    private IUserManager userManager = AVUserManager.getInstance();
     private IFileManager fileManager;
+    private String logoPath;
 
     @Override
     public void register(final Context context, final UserDALEx user, final ICallBack<String> callBack) {
@@ -29,9 +30,9 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
             uploadFile(context, user.getLogourl(), new ICallBack<String>() {
                 @Override
                 public void onSuccess(String url) {
+                    //上传完头像后 本地截图文件
+                    logoPath = user.getLogourl();
                     user.setLogourl(url);
-                    //上传完头像后 删掉本地截图文件
-                    FileUtils.deleteFile(user.getLogourl());
                     signUp(user,callBack);
                 }
 
@@ -51,7 +52,7 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
      **/
     private void uploadFile(final Context context, final String compresspath, final ICallBack<String> callBack){
 
-        fileManager = BmobFileManager.getInstance();
+        fileManager = AVFileManager.getInstance();
         File file = new File(compresspath);
         fileManager.uploadFile(context, "head_"+ file.getName(),compresspath, new ICallBack<String>() {
             @Override
@@ -69,18 +70,21 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
     /**
      * @Decription 注册用户
      **/
-    private void signUp(UserDALEx user,final ICallBack<String> callBack){
+    private void signUp(final UserDALEx user, final ICallBack<String> callBack){
         userManager.register(user, new ICallBack<UserDALEx>() {
             @Override
             public void onSuccess(UserDALEx user) {
                 //注册成功之后设置一下当前数据库名字
                 OrmModuleManager.getInstance().setCurrentDBName(user.getUserid());
                 user.saveOrUpdate();
+                FileUtils.deleteFile(logoPath);
                 callBack.onSuccess(user.getUserid());
             }
 
             @Override
             public void onFaild(String msg) {
+                //上传完头像后 删掉本地截图文件
+                FileUtils.deleteFile(logoPath);
                 callBack.onFaild(msg);
             }
         });

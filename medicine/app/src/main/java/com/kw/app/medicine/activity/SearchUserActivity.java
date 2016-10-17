@@ -9,8 +9,10 @@ import android.view.View;
 
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.adapter.SearchUserAdapter;
-import com.kw.app.medicine.base.BmobUserModel;
-import com.kw.app.medicine.data.bmob.UserBmob;
+import com.kw.app.medicine.avcloud.AVUserManager;
+import com.kw.app.medicine.base.IUserManager;
+import com.kw.app.medicine.bmob.BmobUserManager;
+import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.widget.ICallBack;
 import com.kw.app.widget.activity.BaseActivity;
 import com.kw.app.widget.view.ClearEditText;
@@ -41,8 +43,9 @@ public class SearchUserActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+    private IUserManager userManager = AVUserManager.getInstance();
     SearchUserAdapter adapter;
-    private List<UserBmob> mDataList = new ArrayList<UserBmob>();
+    private List<UserDALEx> mDataList = new ArrayList<UserDALEx>();
 
     @OnClick(R.id.btn_search)
     public void onSearchClick(View view) {
@@ -55,9 +58,9 @@ public class SearchUserActivity extends BaseActivity {
             showAppToast("请填写用户名");
             return;
         }
-        BmobUserModel.getInstance().queryUsers(name, BmobUserModel.DEFAULT_LIMIT, new ICallBack<List<UserBmob>>() {
+        userManager.queryUsers(name, 50, new ICallBack<List<UserDALEx>>() {
             @Override
-            public void onSuccess(List<UserBmob> list) {
+            public void onSuccess(List<UserDALEx> list) {
                 adapter.retsetData(list);
                 rcSearch.refreshComplete();
             }

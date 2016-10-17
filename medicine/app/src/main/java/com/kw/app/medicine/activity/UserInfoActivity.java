@@ -13,7 +13,6 @@ import com.kw.app.commonlib.utils.ImageLoaderUtil;
 import com.kw.app.commonlib.utils.PreferenceUtil;
 import com.kw.app.imlib.messagecontent.CustomzeContactNotificationMessage;
 import com.kw.app.medicine.R;
-import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.FriendRelationDALEx;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.widget.activity.BaseActivity;
@@ -45,9 +44,9 @@ public class UserInfoActivity extends BaseActivity {
     @Bind(R.id.btn_send_message)
     Button btn_send_message;
 
-    UserBmob user;
+    UserDALEx user;
 
-    public static void startUserInfoActivity(Context context,UserBmob user) {
+    public static void startUserInfoActivity(Context context,UserDALEx user) {
         Intent intent = new Intent(context, UserInfoActivity.class);
         intent.putExtra(TAG, user);
         context.startActivity(intent);
@@ -55,7 +54,7 @@ public class UserInfoActivity extends BaseActivity {
 
     @OnClick(R.id.btn_send_message)
     public void onSendMessage(View view){
-        UserDALEx friend = UserDALEx.get().findById(user.getObjectId());
+        UserDALEx friend = UserDALEx.get().findById(user.getUserid());
         SimpleChatActivity.startSimpleChatActivity(UserInfoActivity.this,friend);
     }
 
@@ -80,7 +79,7 @@ public class UserInfoActivity extends BaseActivity {
          */
         CustomzeContactNotificationMessage message = CustomzeContactNotificationMessage.obtain(CustomzeContactNotificationMessage.CONTACT_OPERATION_REQUEST,
                 PreferenceUtil.getInstance().getLastAccount(),
-                user.getObjectId(), "很高兴认识你，可以加好友吗?");
+                user.getUserid(), "很高兴认识你，可以加好友吗?");
 
         Map<String,Object> map =new HashMap<>();
         map.put("msgid", UUID.randomUUID().toString());//消息id
@@ -89,7 +88,7 @@ public class UserInfoActivity extends BaseActivity {
         message.setExtra(new Gson().toJson(map));
 
         RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE,
-                user.getObjectId(),
+                user.getUserid(),
                 message,
                 "很高兴认识你，可以加个好友吗?",
                 "", new IRongCallback.ISendMessageCallback() {
@@ -117,10 +116,10 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     public void onInitView(Bundle savedInstanceState) {
-        user = (UserBmob)getIntent().getSerializableExtra(TAG);
+        user = (UserDALEx)getIntent().getSerializableExtra(TAG);
         getDefaultNavigation().setTitle("个人资料");
 
-        if(FriendRelationDALEx.get().isFriend(user.getObjectId())){
+        if(FriendRelationDALEx.get().isFriend(user.getUserid())){
                 //已经是我朋友  就直接可以聊天
             btn_add_friend.setVisibility(View.GONE);
             btn_send_message.setVisibility(View.VISIBLE);
@@ -131,7 +130,7 @@ public class UserInfoActivity extends BaseActivity {
 
         //构造聊天方的用户信息:传入用户id、用户名和用户头像三个参数
         ImageLoaderUtil.loadCircle(this, user.getLogourl(), iv_avator);
-        tv_name.setText(user.getUsername());
+        tv_name.setText(user.getNickname());
     }
 
     @Override

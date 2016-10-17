@@ -2,8 +2,11 @@ package com.kw.app.medicine.base;
 
 import android.content.Context;
 
+import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.widget.ICallBack;
+
+import java.util.List;
 
 /**
  * @author :wty
@@ -20,5 +23,10 @@ public interface IUserManager {
      * @Decription 登陆
      **/
     void login(final Context context, final String name, final String psw,  final ICallBack<UserDALEx> callBack);
+
+    /**
+     * @Decription 根据输入查询用户
+     **/
+    void queryUsers(String username,int limit,final ICallBack<List<UserDALEx>> callBack);
 
 }

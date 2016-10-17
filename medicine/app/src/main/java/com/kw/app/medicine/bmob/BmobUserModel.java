@@ -1,9 +1,10 @@
-package com.kw.app.medicine.base;
+package com.kw.app.medicine.bmob;
 
 import android.content.Context;
 import android.text.TextUtils;
 
 import com.kw.app.commonlib.utils.AppLogUtil;
+import com.kw.app.medicine.base.CMApplication;
 import com.kw.app.medicine.data.bmob.FriendBmob;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.widget.ICallBack;

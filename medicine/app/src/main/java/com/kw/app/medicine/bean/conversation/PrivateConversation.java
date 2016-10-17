@@ -5,9 +5,8 @@ import android.text.TextUtils;
 
 import com.kw.app.imlib.bean.RongConversation;
 import com.kw.app.medicine.R;
-import com.kw.app.medicine.activity.ChatActivity;
 import com.kw.app.medicine.activity.SimpleChatActivity;
-import com.kw.app.medicine.base.BmobUserModel;
+import com.kw.app.medicine.bmob.BmobUserModel;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.FileMessageDALEx;
 import com.kw.app.medicine.data.local.UserDALEx;

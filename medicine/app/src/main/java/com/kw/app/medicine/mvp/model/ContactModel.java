@@ -2,7 +2,7 @@ package com.kw.app.medicine.mvp.model;
 
 import android.content.Context;
 
-import com.kw.app.medicine.base.BmobUserModel;
+import com.kw.app.medicine.bmob.BmobUserModel;
 import com.kw.app.medicine.data.bmob.FriendBmob;
 import com.kw.app.medicine.data.local.FriendRelationDALEx;
 import com.kw.app.medicine.data.local.UserDALEx;
