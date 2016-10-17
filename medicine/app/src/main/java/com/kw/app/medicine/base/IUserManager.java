@@ -29,4 +29,14 @@ public interface IUserManager {
      **/
     void queryUsers(String username,int limit,final ICallBack<List<UserDALEx>> callBack);
 
+    /**
+     * @Decription 更新用户信息
+     **/
+    void getUserInfo(String userid);
+
+    /**
+     * @Decription 查找用户信息
+     **/
+    void queryUserInfo(String objectId, final ICallBack<UserDALEx> callBack);
+
 }

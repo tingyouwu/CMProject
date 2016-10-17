@@ -28,8 +28,6 @@ import cn.bmob.v3.listener.UpdateListener;
  */
 public class BmobUserModel {
 
-    public static final int DEFAULT_LIMIT=50;
-
     public Context getContext(){
         return CMApplication.getInstance();
     }
@@ -41,37 +39,6 @@ public class BmobUserModel {
     }
 
     private BmobUserModel() {}
-
-    /**查询用户
-     * @param username
-     * @param limit
-     * @param callBack
-     */
-    public void queryUsers(String username,int limit,final ICallBack<List<UserBmob>> callBack){
-        BmobQuery<UserBmob> query = new BmobQuery<>();
-        //去掉当前用户
-        UserBmob user = UserBmob.getCurrentUser(UserBmob.class);
-        query.addWhereNotEqualTo("username",user.getUsername());
-        query.addWhereContains("username", username);
-        query.setLimit(limit);
-        query.order("-createdAt");
-
-        query.findObjects(new FindListener<UserBmob>() {
-            @Override
-            public void done(List<UserBmob> list, BmobException e) {
-                if(e==null){
-                    if (list != null && list.size() > 0) {
-                        callBack.onSuccess(list);
-                    } else {
-                        callBack.onFaild("查无此人");
-                    }
-                }else{
-                    callBack.onFaild(e.getMessage());
-                }
-            }
-        });
-
-    }
 
     /**查询用户信息
      * @param objectId

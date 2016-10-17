@@ -94,4 +94,39 @@ public class AVUserManager implements IUserManager{
             }
         });
     }
+
+    @Override
+    public void getUserInfo(String userid) {
+        queryUserInfo(userid, new ICallBack<UserDALEx>() {
+            @Override
+            public void onSuccess(UserDALEx data) {
+                data.saveOrUpdate();
+            }
+
+            @Override
+            public void onFaild(String msg) {
+
+            }
+        });
+    }
+
+    @Override
+    public void queryUserInfo(String objectId, final ICallBack<UserDALEx> callBack) {
+        AVQuery<AVUser> userQuery = new AVQuery<>("_User");
+        userQuery.whereEqualTo("objectId",objectId);
+        userQuery.findInBackground(new FindCallback<AVUser>() {
+            @Override
+            public void done(List<AVUser> list, AVException e) {
+                if(e==null){
+                    if(list != null && list.size()>0){
+                        callBack.onSuccess(AVUserUtil.convertToLocal(list.get(0)));
+                    }else{
+                        callBack.onFaild("查无此人");
+                    }
+                }else{
+                    callBack.onFaild(e.getMessage());
+                }
+            }
+        });
+    }
 }

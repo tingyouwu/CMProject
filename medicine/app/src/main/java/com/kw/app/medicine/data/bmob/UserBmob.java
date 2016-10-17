@@ -80,7 +80,7 @@ public class UserBmob extends BmobUser {
 		dalex.saveOrUpdate();
 	}
 
-	public UserDALEx convertToDALEx(final UserBmob bmob){
+	public static UserDALEx convertToDALEx(final UserBmob bmob){
 		UserDALEx dalex = new UserDALEx();
 		dalex.setUserid(bmob.getObjectId());
 		dalex.setNickname(bmob.getUsername());
