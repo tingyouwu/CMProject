@@ -107,7 +107,7 @@ public class RongManager {
 	private void handleCustomzeContactNotificationMessage(CustomzeContactNotificationMessage contactNotificationMessage){
 
 		//更新一下本地用户信息
-		BmobUserModel.getInstance().updateUserInfo(contactNotificationMessage.getSourceUserId());
+		CloudManager.getInstance().getUserManager().getUserInfo(contactNotificationMessage.getSourceUserId());
 
 		if (contactNotificationMessage.getOperation().equals(CustomzeContactNotificationMessage.CONTACT_OPERATION_REQUEST)) {
 			//对方发来好友邀请
@@ -139,7 +139,7 @@ public class RongManager {
 			//对方同意我的好友请求 此时需要做的事情：1、添加对方为好友，2、显示通知
 			AppLogUtil.d("对方同意我的好友邀请");
 			AgreeAddFriendMessage agree = AgreeAddFriendMessage.convert(contactNotificationMessage);
-			BmobUserModel.getInstance().addFriend(contactNotificationMessage.getSourceUserId());
+			CloudManager.getInstance().getFriendManager().addFriend(contactNotificationMessage.getSourceUserId());
 			SystemMessageDALEx system = SystemMessageDALEx.convert(contactNotificationMessage);
 			system.setType(SystemMessageDALEx.SystemMessageType.AgreeAdd.code);
 

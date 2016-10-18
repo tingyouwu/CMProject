@@ -50,7 +50,7 @@ public class SimpleChatAdapter extends BaseRecyclerViewMultiItemAdapter<Message>
         super(context, data);
         this.target = target;
 
-        currentUid = BmobUser.getCurrentUser(UserBmob.class).getObjectId();
+        currentUid = PreferenceUtil.getInstance().getLastAccount();
         addItemType(TYPE_RECEIVER_TXT, R.layout.item_chat_received_message);
         addItemType(TYPE_SEND_TXT, R.layout.item_chat_sent_message);
         addItemType(TYPE_SEND_IMAGE,R.layout.item_chat_sent_image);

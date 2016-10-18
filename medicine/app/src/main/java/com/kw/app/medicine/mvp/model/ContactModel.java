@@ -2,8 +2,9 @@ package com.kw.app.medicine.mvp.model;
 
 import android.content.Context;
 
-import com.kw.app.medicine.bmob.BmobUserModel;
-import com.kw.app.medicine.data.bmob.FriendBmob;
+import com.kw.app.medicine.avcloud.AVFriendManager;
+import com.kw.app.medicine.base.CloudManager;
+import com.kw.app.medicine.base.IFriendManager;
 import com.kw.app.medicine.data.local.FriendRelationDALEx;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IContactContract;
@@ -25,18 +26,6 @@ public class ContactModel implements IContactContract.IContactModel {
         if(relation !=null){
             updatetime = relation.getUpdateAt();
         }
-
-        BmobUserModel.getInstance().queryFriends(updatetime, new ICallBack<List<FriendBmob>>() {
-            @Override
-            public void onSuccess(List<FriendBmob> list) {
-                FriendBmob.get().save(list);
-                callBack.onSuccess(UserDALEx.get().findAllFriend());
-            }
-
-            @Override
-            public void onFaild(String msg) {
-                callBack.onFaild(msg);
-            }
-        });
+        CloudManager.getInstance().getFriendManager().loadFriends(updatetime, callBack);
     }
 }

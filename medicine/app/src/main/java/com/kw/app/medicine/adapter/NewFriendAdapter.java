@@ -13,9 +13,9 @@ import com.kw.app.commonlib.utils.PreferenceUtil;
 import com.kw.app.imlib.messagecontent.CustomzeContactNotificationMessage;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.activity.FriendRequstActivity;
-import com.kw.app.medicine.bmob.BmobUserModel;
-import com.kw.app.medicine.data.bmob.UserBmob;
+import com.kw.app.medicine.base.CloudManager;
 import com.kw.app.medicine.data.local.NewFriendDALEx;
+import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.widget.BaseRecyclerViewHolder;
 import com.kw.app.widget.ICallBack;
 import com.kw.app.widget.activity.BaseActivity;
@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import cn.bmob.v3.BmobUser;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
@@ -103,9 +102,9 @@ public class NewFriendAdapter extends BaseRecyclerViewAdapter<NewFriendDALEx> {
      * @Decription 同意添加到好友列表
      **/
     private void agreeAdd(final NewFriendDALEx add, final ICallBack<String> callBack){
-        final UserBmob user = new UserBmob();
-        user.setObjectId(add.getUid());
-        BmobUserModel.getInstance().agreeAddFriend(user, new ICallBack<String>() {
+        UserDALEx user = new UserDALEx();
+        user.setUserid(add.getUid());
+        CloudManager.getInstance().getFriendManager().agreeAddFriend(user, new ICallBack<String>() {
             @Override
             public void onSuccess(String data) {
                 sendAgreeAddFriendMessage(add,callBack);
@@ -116,17 +115,17 @@ public class NewFriendAdapter extends BaseRecyclerViewAdapter<NewFriendDALEx> {
                 callBack.onFaild(msg);
             }
         });
+
     }
 
     /**
      * 发送同意添加好友的请求
      */
     private void sendAgreeAddFriendMessage(final NewFriendDALEx user, final ICallBack<String> callBack){
-        UserBmob currentUser = BmobUser.getCurrentUser(UserBmob.class);
         CustomzeContactNotificationMessage message = CustomzeContactNotificationMessage.obtain(CustomzeContactNotificationMessage.CONTACT_OPERATION_ACCEPT_RESPONSE,
                 PreferenceUtil.getInstance().getLastAccount(),
                 user.getUid(), "已同意您的好友请求");
-        message.setUserInfo(new UserInfo(currentUser.getObjectId(), currentUser.getUsername(), Uri.parse(currentUser.getLogourl())));
+        message.setUserInfo(new UserInfo(PreferenceUtil.getInstance().getLastAccount(), PreferenceUtil.getInstance().getLastName(), Uri.parse(PreferenceUtil.getInstance().getLogoUrl())));
 
         Map<String,Object> map =new HashMap<>();
         map.put("msgid", UUID.randomUUID().toString());//消息id
@@ -137,7 +136,7 @@ public class NewFriendAdapter extends BaseRecyclerViewAdapter<NewFriendDALEx> {
         RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE,
                 user.getUid(),
                 message,
-                currentUser.getUsername()+"已同意您的好友请求",
+                PreferenceUtil.getInstance().getLastName()+"已同意您的好友请求",
                 "", new IRongCallback.ISendMessageCallback() {
                     @Override
                     public void onAttached(Message message) {

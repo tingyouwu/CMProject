@@ -7,7 +7,6 @@ import com.kw.app.commonlib.utils.AppLogUtil;
 import com.kw.app.imlib.fakeserver.FakeServer;
 import com.kw.app.imlib.fakeserver.FakeUser;
 import com.kw.app.imlib.fakeserver.HttpUtil;
-import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IUserLoginContract;
 import com.kw.app.medicine.mvp.model.UserLoginModel;
@@ -65,7 +64,7 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginContract.IUserLo
      * 1.通过账号和密码 去融云获取token
      * 2.通过token连接上融云服务器
      **/
-    public void loginAuto(final Context context,final UserBmob user){
+    public void loginAuto(final Context context,final UserDALEx user){
         if(!mView.checkNet()){
             mView.showNoNet();
             return;
@@ -107,10 +106,10 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginContract.IUserLo
     /**
      * @Decription 客户端从融云服务器获取token令牌
      **/
-    private void getTokenAuto(final Context context, final UserBmob user){
+    private void getTokenAuto(final Context context, final UserDALEx user){
         FakeUser fakeuser = new FakeUser();
-        fakeuser.setUserid(user.getObjectId());
-        fakeuser.setUsername(user.getUsername());
+        fakeuser.setUserid(user.getUserid());
+        fakeuser.setUsername(user.getNickname());
         fakeuser.setUserlogo(user.getLogourl());
         FakeServer.getToken(fakeuser, new HttpUtil.OnResponse() {
             @Override
@@ -164,7 +163,7 @@ public class UserLoginPresenter extends BasePresenter<IUserLoginContract.IUserLo
     /**
      * @Decription 连接到融云服务器
      **/
-    private void connectAuto(final Context context, final UserBmob user, String token) {
+    private void connectAuto(final Context context, final UserDALEx user, String token) {
             RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
                 @Override
                 public void onTokenIncorrect() {

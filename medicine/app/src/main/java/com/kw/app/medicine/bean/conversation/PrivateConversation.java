@@ -6,8 +6,7 @@ import android.text.TextUtils;
 import com.kw.app.imlib.bean.RongConversation;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.activity.SimpleChatActivity;
-import com.kw.app.medicine.bmob.BmobUserModel;
-import com.kw.app.medicine.data.bmob.UserBmob;
+import com.kw.app.medicine.base.CloudManager;
 import com.kw.app.medicine.data.local.FileMessageDALEx;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.widget.ICallBack;
@@ -41,10 +40,10 @@ public class PrivateConversation extends RongConversation {
         //去用户表中去拿此id的信息
         if(!UserDALEx.get().isExist(cId)){
 
-            BmobUserModel.getInstance().queryUserInfo(cId, new ICallBack<UserBmob>() {
+            CloudManager.getInstance().getUserManager().queryUserInfo(cId, new ICallBack<UserDALEx>() {
                 @Override
-                public void onSuccess(UserBmob userBmob) {
-                    userBmob.save(userBmob);
+                public void onSuccess(UserDALEx user) {
+                    user.saveOrUpdate();
                     user = UserDALEx.get().findById(cId);
                     if(user != null){
                         cName = user.getNickname();

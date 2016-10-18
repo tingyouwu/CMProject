@@ -1,7 +1,6 @@
 package com.kw.app.medicine.bmob;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.kw.app.commonlib.utils.AppLogUtil;
 import com.kw.app.medicine.base.CMApplication;
@@ -9,14 +8,10 @@ import com.kw.app.medicine.data.bmob.FriendBmob;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.widget.ICallBack;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -40,48 +35,6 @@ public class BmobUserModel {
 
     private BmobUserModel() {}
 
-    /**查询用户信息
-     * @param objectId
-     * @param callBack
-     */
-    public void queryUserInfo(String objectId, final ICallBack<UserBmob> callBack){
-        BmobQuery<UserBmob> query = new BmobQuery<>();
-        query.addWhereEqualTo("objectId", objectId);
-        query.findObjects(new FindListener<UserBmob>() {
-            @Override
-            public void done(List<UserBmob> list, BmobException e) {
-                if(e==null){
-                    if (list != null && list.size() > 0) {
-                        callBack.onSuccess(list.get(0));
-                    } else {
-                        callBack.onFaild("查无此人");
-                    }
-                }else{
-                    callBack.onFaild(e.getMessage());
-                }
-            }
-        });
-    }
-
-    /**
-     * @更新用户信息
-     **/
-    public void updateUserInfo(String userid){
-
-        BmobUserModel.getInstance().queryUserInfo(userid, new ICallBack<UserBmob>() {
-            @Override
-            public void onSuccess(UserBmob user) {
-                user.save(user);
-            }
-
-            @Override
-            public void onFaild(String msg) {
-
-            }
-        });
-
-    }
-
     /**
      * 同意添加好友：添加对方到自己的好友列表中
      */
@@ -96,42 +49,6 @@ public class BmobUserModel {
             public void done(String s, BmobException e) {
                 if(e==null){
                     callBack.onSuccess("");
-                }else{
-                    callBack.onFaild(e.getMessage());
-                }
-            }
-        });
-    }
-
-    /**
-     * 查询好友
-     */
-    public void queryFriends(String updatetime, final ICallBack<List<FriendBmob>> callBack){
-        BmobQuery<FriendBmob> query = new BmobQuery<FriendBmob>();
-        UserBmob user = BmobUser.getCurrentUser(UserBmob.class);
-        query.addWhereEqualTo("user", user);
-
-        if(!TextUtils.isEmpty(updatetime)){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date date;
-            try {
-                date = sdf.parse(updatetime);
-                query.addWhereGreaterThanOrEqualTo("updatedAt",new BmobDate(date));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-        query.include("friendUser");
-        query.findObjects(new FindListener<FriendBmob>() {
-            @Override
-            public void done(List<FriendBmob> list, BmobException e) {
-                if(e==null){
-                    if (list != null && list.size() > 0) {
-                        callBack.onSuccess(list);
-                    } else {
-                        callBack.onFaild("暂无联系人");
-                    }
                 }else{
                     callBack.onFaild(e.getMessage());
                 }
@@ -155,26 +72,6 @@ public class BmobUserModel {
                 }else{
                     listener.onFaild("删除失败:"+e.getMessage());
                 }
-            }
-        });
-    }
-
-    /**
-     * 添加对方为自己的好友
-     * @param uid
-     */
-    public void addFriend(String uid){
-        UserBmob user =new UserBmob();
-        user.setObjectId(uid);
-        BmobUserModel.getInstance().agreeAddFriend(user, new ICallBack<String>() {
-            @Override
-            public void onSuccess(String data) {
-                AppLogUtil.i("onSuccess");
-            }
-
-            @Override
-            public void onFaild(String msg) {
-                AppLogUtil.i("onFailure:" + msg);
             }
         });
     }

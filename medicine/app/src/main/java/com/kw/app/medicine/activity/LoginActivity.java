@@ -18,7 +18,6 @@ import com.kw.app.commonlib.utils.ImageLoaderUtil;
 import com.kw.app.commonlib.utils.PreferenceUtil;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.base.CMApplication;
-import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IUserLoginContract;
 import com.kw.app.medicine.mvp.presenter.UserLoginPresenter;
@@ -127,9 +126,9 @@ public class LoginActivity extends BaseActivity<UserLoginPresenter> implements I
         }
 
         if(isAutoLogin){//自动登录就调整到主页面
-            UserBmob user = new UserBmob();
-            user.setObjectId(userid);
-            user.setUsername(name);
+            UserDALEx user = new UserDALEx();
+            user.setUserid(userid);
+            user.setNickname(name);
             user.setLogourl(logourl);
 
             contentlayout.setVisibility(View.GONE);

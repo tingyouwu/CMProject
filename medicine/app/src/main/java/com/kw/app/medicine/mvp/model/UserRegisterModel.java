@@ -4,10 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.kw.app.commonlib.utils.FileUtils;
-import com.kw.app.medicine.avcloud.AVFileManager;
-import com.kw.app.medicine.avcloud.AVUserManager;
-import com.kw.app.medicine.base.IFileManager;
-import com.kw.app.medicine.base.IUserManager;
+import com.kw.app.medicine.base.CloudManager;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.mvp.contract.IUserRegisterContract;
 import com.kw.app.ormlib.OrmModuleManager;
@@ -19,9 +16,6 @@ import java.io.File;
  * @author wty
  */
 public class UserRegisterModel implements IUserRegisterContract.IUserRegisterModel {
-
-    private IUserManager userManager = AVUserManager.getInstance();
-    private IFileManager fileManager;
     private String logoPath;
 
     @Override
@@ -51,10 +45,8 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
      * @Decription 上传文件
      **/
     private void uploadFile(final Context context, final String compresspath, final ICallBack<String> callBack){
-
-        fileManager = AVFileManager.getInstance();
         File file = new File(compresspath);
-        fileManager.uploadFile(context, "head_"+ file.getName(),compresspath, new ICallBack<String>() {
+        CloudManager.getInstance().getFileManager().uploadFile(context, "head_"+ file.getName(),compresspath, new ICallBack<String>() {
             @Override
             public void onSuccess(String url) {
                 callBack.onSuccess(url);
@@ -71,7 +63,7 @@ public class UserRegisterModel implements IUserRegisterContract.IUserRegisterMod
      * @Decription 注册用户
      **/
     private void signUp(final UserDALEx user, final ICallBack<String> callBack){
-        userManager.register(user, new ICallBack<UserDALEx>() {
+        CloudManager.getInstance().getUserManager().register(user, new ICallBack<UserDALEx>() {
             @Override
             public void onSuccess(UserDALEx user) {
                 //注册成功之后设置一下当前数据库名字
