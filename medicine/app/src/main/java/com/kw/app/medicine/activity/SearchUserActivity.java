@@ -11,7 +11,6 @@ import com.kw.app.medicine.R;
 import com.kw.app.medicine.adapter.SearchUserAdapter;
 import com.kw.app.medicine.avcloud.AVUserManager;
 import com.kw.app.medicine.base.IUserManager;
-import com.kw.app.medicine.bmob.BmobUserManager;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.widget.ICallBack;
 import com.kw.app.widget.activity.BaseActivity;

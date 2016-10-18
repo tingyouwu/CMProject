@@ -3,12 +3,14 @@ package com.kw.app.medicine.avcloud;
 import android.content.Context;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.kw.app.medicine.base.IUserManager;
+import com.kw.app.medicine.data.avcloud.UserAVCloud;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.widget.ICallBack;
 
@@ -32,13 +34,13 @@ public class AVUserManager implements IUserManager{
     @Override
     public void register(UserDALEx user, final ICallBack<UserDALEx> callBack) {
 
-        AVUser avUser = AVUserUtil.convertToAVUser(user);
+        UserAVCloud avUser = AVUserUtil.convertToAVUser(user);
         avUser.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(AVException e) {
                 if(e==null){
                     //注册成功
-                    UserDALEx user = AVUserUtil.convertToLocal(AVUser.getCurrentUser());
+                    UserDALEx user = AVUserUtil.convertToLocal(AVUser.getCurrentUser(UserAVCloud.class));
                     callBack.onSuccess(user);
                 }else{
                     //注册失败
@@ -50,12 +52,12 @@ public class AVUserManager implements IUserManager{
 
     @Override
     public void login(Context context, String name, String psw, final ICallBack<UserDALEx> callBack) {
-        AVUser.logInInBackground(name, psw, new LogInCallback<AVUser>() {
+        UserAVCloud.logInInBackground(name, psw, new LogInCallback<AVUser>() {
             @Override
             public void done(AVUser avUser, AVException e) {
                 if(e == null){
                     //登陆成功
-                    callBack.onSuccess(AVUserUtil.convertToLocal(avUser));
+                    callBack.onSuccess(AVUserUtil.convertToLocal(AVUser.getCurrentUser(UserAVCloud.class)));
                 }else{
                     //登陆失败
                     callBack.onFaild(e.getMessage());
@@ -67,19 +69,19 @@ public class AVUserManager implements IUserManager{
     @Override
     public void queryUsers(String username, final int limit, final ICallBack<List<UserDALEx>> callBack) {
         //包含username 但不能是我自己
-        AVQuery<AVUser> userQuery1 = new AVQuery<>("_User");
+        AVQuery<UserAVCloud> userQuery1 = AVObject.getQuery(UserAVCloud.class);
         userQuery1.whereNotEqualTo("username",AVUser.getCurrentUser().getUsername());
 
-        AVQuery<AVUser> userQuery2 = new AVQuery<>("_User");
+        AVQuery<UserAVCloud> userQuery2 = AVObject.getQuery(UserAVCloud.class);
         userQuery2.whereContains("username",username);
 
-        AVQuery<AVUser> userQuery3 = AVQuery.and(Arrays.asList(userQuery1,userQuery2));
+        AVQuery<UserAVCloud> userQuery3 = AVQuery.and(Arrays.asList(userQuery1,userQuery2));
 
         userQuery3.setLimit(limit);
         userQuery3.orderByDescending("createdAt");
-        userQuery3.findInBackground(new FindCallback<AVUser>() {
+        userQuery3.findInBackground(new FindCallback<UserAVCloud>() {
             @Override
-            public void done(List<AVUser> list, AVException e) {
+            public void done(List<UserAVCloud> list, AVException e) {
                 if(e == null){
                     //查找成功
                     if(list != null && list.size()>0){
@@ -112,11 +114,11 @@ public class AVUserManager implements IUserManager{
 
     @Override
     public void queryUserInfo(String objectId, final ICallBack<UserDALEx> callBack) {
-        AVQuery<AVUser> userQuery = new AVQuery<>("_User");
+        AVQuery<UserAVCloud> userQuery = AVObject.getQuery(UserAVCloud.class);
         userQuery.whereEqualTo("objectId",objectId);
-        userQuery.findInBackground(new FindCallback<AVUser>() {
+        userQuery.findInBackground(new FindCallback<UserAVCloud>() {
             @Override
-            public void done(List<AVUser> list, AVException e) {
+            public void done(List<UserAVCloud> list, AVException e) {
                 if(e==null){
                     if(list != null && list.size()>0){
                         callBack.onSuccess(AVUserUtil.convertToLocal(list.get(0)));

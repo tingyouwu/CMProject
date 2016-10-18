@@ -1,5 +1,7 @@
 package com.kw.app.avcloudlib;
 
+import android.os.Parcel;
+
 import com.avos.avoscloud.AVObject;
 import com.kw.app.avcloudlib.annotation.AVAnnotationCache;
 import com.kw.app.avcloudlib.annotation.AVAnnotationField;
@@ -19,6 +21,17 @@ import java.util.Map;
  * 注：本层只提供方法，不能定义任何成员变量
  **/
 public abstract class BaseAVObject extends AVObject {
+
+    //此处为我们的默认实现，当然你也可以自行实现
+    public static final Creator CREATOR = AVObjectCreator.instance;
+
+    public BaseAVObject(){
+        super();
+    }
+
+    public BaseAVObject(Parcel in){
+        super(in);
+    }
 
     @Override
     public void put(String key, Object value) {
