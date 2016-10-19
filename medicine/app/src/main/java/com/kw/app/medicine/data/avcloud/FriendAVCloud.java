@@ -4,6 +4,7 @@ import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 import com.kw.app.avcloudlib.BaseAVObject;
 import com.kw.app.avcloudlib.annotation.AVObjectDao;
+import com.kw.app.commonlib.utils.TimeUtil;
 import com.kw.app.medicine.avcloud.AVUserUtil;
 import com.kw.app.medicine.data.local.FriendRelationDALEx;
 import com.kw.app.medicine.data.local.UserDALEx;
@@ -35,6 +36,7 @@ public class FriendAVCloud extends BaseAVObject {
             dalex.setRelationid(friend.getObjectId());
             dalex.setFriendid(friend.getFriendUser().getObjectId());
             dalex.setStatus(friend.getStatus());
+            dalex.setUpdateAt(TimeUtil.dateToString(friend.getUpdatedAt()));
             UserDALEx userDALEx = AVUserUtil.convertToLocal(friend.getFriendUser());//保存用户信息
             userDALEx.saveOrUpdate();
             localdalex.add(dalex);

@@ -14,7 +14,6 @@ import com.kw.app.medicine.adapter.ContactAdapter;
 import com.kw.app.medicine.bean.FriendBean;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.event.RefreshContactEvent;
-import com.kw.app.medicine.event.RefreshEvent;
 import com.kw.app.medicine.mvp.contract.IContactContract;
 import com.kw.app.medicine.mvp.presenter.ContactPresenter;
 import com.kw.app.widget.fragment.BaseFragment;

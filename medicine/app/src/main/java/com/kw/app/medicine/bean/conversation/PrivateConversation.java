@@ -9,8 +9,10 @@ import com.kw.app.medicine.activity.SimpleChatActivity;
 import com.kw.app.medicine.base.CloudManager;
 import com.kw.app.medicine.data.local.FileMessageDALEx;
 import com.kw.app.medicine.data.local.UserDALEx;
+import com.kw.app.medicine.event.RefreshEvent;
 import com.kw.app.widget.ICallBack;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,6 +52,8 @@ public class PrivateConversation extends RongConversation {
                     }else{
                         cName = "陌生人";
                     }
+                    //发送页面刷新的广播
+                    EventBus.getDefault().post(new RefreshEvent());
                 }
 
                 @Override
