@@ -15,6 +15,8 @@ import com.kw.app.medicine.data.local.SystemMessageDALEx;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.medicine.data.local.VoiceReadStatusDALEx;
 import com.kw.app.medicine.event.RefreshChatEvent;
+import com.kw.app.medicine.event.RefreshContactEvent;
+import com.kw.app.medicine.event.RefreshContactTabEvent;
 import com.kw.app.medicine.event.RefreshEvent;
 import com.kw.app.medicine.event.RefreshMessageTabEvent;
 
@@ -149,6 +151,9 @@ public class RongManager {
 
 			if(CommonUtil.isAppIsInBackground(mContext))
 				CMNotificationManager.showNotification(mContext, agree.getName(), agree.getMsg(), null);
+			//刷新联系人列表
+			EventBus.getDefault().post(new RefreshContactEvent());
+			EventBus.getDefault().post(new RefreshContactTabEvent());
 
 		}else if(contactNotificationMessage.getOperation().equals(ContactNotificationMessage.CONTACT_OPERATION_REJECT_RESPONSE)){
 			//对方拒绝我的好友请求

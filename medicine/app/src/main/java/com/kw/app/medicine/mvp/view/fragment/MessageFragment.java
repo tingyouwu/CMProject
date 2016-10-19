@@ -1,6 +1,7 @@
 package com.kw.app.medicine.mvp.view.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -45,6 +46,12 @@ public class MessageFragment extends BaseFragment<MessagePresenter> implements I
     @Override
     public MessagePresenter getPresenter() {
         return new MessagePresenter();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -126,15 +133,9 @@ public class MessageFragment extends BaseFragment<MessagePresenter> implements I
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
+    public void onDestroy() {
+        super.onDestroy();
         EventBus.getDefault().unregister(this);
-        super.onStop();
     }
 
     /**

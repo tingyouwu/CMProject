@@ -1,6 +1,5 @@
 package com.kw.app.medicine.avcloud;
 
-import com.avos.avoscloud.AVUser;
 import com.kw.app.commonlib.utils.HanziToPinyinUtil;
 import com.kw.app.commonlib.utils.TimeUtil;
 import com.kw.app.medicine.data.avcloud.UserAVCloud;

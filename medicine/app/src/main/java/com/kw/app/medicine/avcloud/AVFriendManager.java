@@ -38,14 +38,12 @@ public class AVFriendManager implements IFriendManager{
 
     @Override
     public void loadFriends(String updatetime, final ICallBack<List<UserDALEx>> callBack) {
+
         AVQuery<FriendAVCloud> userQuery1 = AVObject.getQuery(FriendAVCloud.class);
         UserAVCloud me = AVUser.getCurrentUser(UserAVCloud.class);
         userQuery1.whereEqualTo("user",AVObject.createWithoutData("_User",me.getObjectId()));
-        userQuery1.include("friendUser");
-        userQuery1.limit(1000);
 
         AVQuery<FriendAVCloud> userQuery2 = AVObject.getQuery(FriendAVCloud.class);
-
         if(!TextUtils.isEmpty(updatetime)){
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date;
@@ -58,6 +56,8 @@ public class AVFriendManager implements IFriendManager{
         }
 
         AVQuery<FriendAVCloud> userQuery = AVQuery.and(Arrays.asList(userQuery1,userQuery2));
+        userQuery.include("friendUser");
+        userQuery.limit(1000);
         userQuery.findInBackground(new FindCallback<FriendAVCloud>() {
             @Override
             public void done(List<FriendAVCloud> list, AVException e) {

@@ -1,16 +1,20 @@
 package com.kw.app.medicine.mvp.view.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.devspark.appmsg.AppMsg;
+import com.kw.app.commonlib.utils.AppLogUtil;
 import com.kw.app.medicine.R;
 import com.kw.app.medicine.activity.SearchUserActivity;
 import com.kw.app.medicine.adapter.ContactAdapter;
 import com.kw.app.medicine.bean.FriendBean;
 import com.kw.app.medicine.data.local.UserDALEx;
+import com.kw.app.medicine.event.RefreshContactEvent;
+import com.kw.app.medicine.event.RefreshEvent;
 import com.kw.app.medicine.mvp.contract.IContactContract;
 import com.kw.app.medicine.mvp.presenter.ContactPresenter;
 import com.kw.app.widget.fragment.BaseFragment;
@@ -21,6 +25,9 @@ import com.kw.app.widget.view.SideBar;
 import com.kw.app.widget.view.loadingview.LoadingState;
 import com.kw.app.widget.view.loadingview.LoadingView;
 import com.kw.app.widget.view.xrecyclerview.XRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -53,6 +60,18 @@ public class ContactFragment extends BaseFragment<ContactPresenter> implements I
     @Override
     public ContactPresenter getPresenter() {
         return new ContactPresenter();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -92,13 +111,8 @@ public class ContactFragment extends BaseFragment<ContactPresenter> implements I
                 .build();
         mPresenter.loadAllFriend();
         mPresenter.refreshFriend(getContext());
-
     }
 
-    @Override
-    public void doWorkOnResume() {
-
-    }
 
     @Override
     public int getLayoutResource() {
@@ -125,6 +139,8 @@ public class ContactFragment extends BaseFragment<ContactPresenter> implements I
             AppMsg.makeText(activity, "网络连接失败，请检查网路", AppMsg.STYLE_INFO).show();
         }
     }
+
+
 
     @Override
     public void refreshFriend(List<UserDALEx> list) {
@@ -193,6 +209,17 @@ public class ContactFragment extends BaseFragment<ContactPresenter> implements I
         }
 
         return contactlist;
+    }
+
+    /**
+     * 刷新列表
+     * @param event
+     */
+    @Subscribe
+    public void onEventMainThread(RefreshContactEvent event){
+        AppLogUtil.i("--联系人列表接收到刷新消息---");
+        //因为新增`新朋友`这种会话类型
+        mPresenter.refreshFriend(getContext());
     }
 
 }

@@ -49,6 +49,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onInitView(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         //对应xml中的containerId
         navigateTabBar.setFrameLayoutId(R.id.main_container);
         //对应xml中的navigateTabTextColor
@@ -91,18 +92,6 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             exitBy2Click();
@@ -135,6 +124,7 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         RongIMClient.getInstance().disconnect();
+        EventBus.getDefault().unregister(this);
         System.exit(0);
     }
 
