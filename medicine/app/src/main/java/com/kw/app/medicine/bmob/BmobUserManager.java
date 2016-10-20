@@ -6,7 +6,6 @@ import com.kw.app.medicine.base.IUserManager;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.widget.ICallBack;
-
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -122,5 +121,25 @@ public class BmobUserManager implements IUserManager {
                 }
             }
         });
+    }
+
+    @Override
+    public void updateUserIcon(String path, ICallBack<String> callBack) {
+
+    }
+
+    @Override
+    public void updateUserName(String name, ICallBack<String> callBack) {
+
+    }
+
+    @Override
+    public void updateUserPSW(String psw, ICallBack<String> callBack) {
+
+    }
+
+    @Override
+    public void updateUserRemark(String remark, ICallBack<String> callBack) {
+
     }
 }

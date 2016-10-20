@@ -48,7 +48,7 @@ public class UserDALEx extends SqliteBaseDALEx {
 	private int age;//年龄
 
 	@DatabaseField(Type = FieldType.INT)
-	private int role;// 角色  1医生 0非医生
+	private int role;// 角色  1医生 2非医生  0 默认什么也不是
 
 	@DatabaseField(Type = FieldType.VARCHAR)
 	private String createAt;//创建时间

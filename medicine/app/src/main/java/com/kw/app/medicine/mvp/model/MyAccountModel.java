@@ -6,9 +6,13 @@ import android.text.TextUtils;
 
 import com.kw.app.bmoblib.annotation.BmobExceptionCode;
 import com.kw.app.commonlib.utils.PreferenceUtil;
+import com.kw.app.medicine.base.CloudManager;
+import com.kw.app.medicine.data.avcloud.UserAVCloud;
 import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.mvp.contract.IMyAccountContract;
 import com.kw.app.widget.ICallBack;
+
+import java.io.File;
 import java.util.List;
 
 import cn.bmob.v3.datatype.BmobFile;
@@ -25,7 +29,26 @@ public class MyAccountModel implements IMyAccountContract.IMyAccountModel {
     public void updateHeadImage(final Context context, final Uri uri, final ICallBack<String> callBack) {
         if(!TextUtils.isEmpty(uri.getPath())){
             updateToBmobFile(context,uri.getPath(), callBack);
+            updateFile(context,uri.getPath(),callBack);
         }
+    }
+
+    private void updateFile(Context context, String path, final ICallBack<String> callBack) {
+        File file = new File(path);
+        CloudManager.getInstance().getFileManager().uploadFile(context, "head_" + file.getName(), path, new ICallBack<String>() {
+            @Override
+            public void onSuccess(String url) {
+            }
+
+            @Override
+            public void onFaild(String msg) {
+                callBack.onFaild(msg);
+            }
+        });
+    }
+
+    private void updateUserIcon(){
+
     }
 
     private void updateToBmobFile(final Context context, final String compresspath, final ICallBack<String> callBack){

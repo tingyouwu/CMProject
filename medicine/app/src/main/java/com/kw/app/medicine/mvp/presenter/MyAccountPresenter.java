@@ -41,6 +41,7 @@ public class MyAccountPresenter extends BasePresenter<IMyAccountContract.IMyAcco
 
             @Override
             public void onFaild(String msg) {
+                FileUtils.deleteFile(uri.getPath());
                 mView.dismissLoading(new OnDismissCallbackListener(msg, SweetAlertDialog.ERROR_TYPE));
             }
         });

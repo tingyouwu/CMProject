@@ -2,7 +2,6 @@ package com.kw.app.medicine.base;
 
 import android.content.Context;
 
-import com.kw.app.medicine.data.bmob.UserBmob;
 import com.kw.app.medicine.data.local.UserDALEx;
 import com.kw.app.widget.ICallBack;
 
@@ -37,6 +36,26 @@ public interface IUserManager {
     /**
      * @Decription 查找用户信息
      **/
-    void queryUserInfo(String objectId, final ICallBack<UserDALEx> callBack);
+    void queryUserInfo(String userid, final ICallBack<UserDALEx> callBack);
+
+    /**
+     * @Decription 更新头像
+     **/
+    void updateUserIcon(String path,final ICallBack<String> callBack);
+
+    /**
+     * @Decription 更新名字
+     **/
+    void updateUserName(String name,final ICallBack<String> callBack);
+
+    /**
+     * @Decription 更新密码
+     **/
+    void updateUserPSW(String psw,final ICallBack<String> callBack);
+
+    /**
+     * @Decription 更新个性签名
+     **/
+    void updateUserRemark(String remark,final ICallBack<String> callBack);
 
 }

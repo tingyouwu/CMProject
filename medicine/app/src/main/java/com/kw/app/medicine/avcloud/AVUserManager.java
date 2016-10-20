@@ -8,6 +8,7 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.LogInCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.kw.app.medicine.base.IUserManager;
 import com.kw.app.medicine.data.avcloud.UserAVCloud;
@@ -130,5 +131,47 @@ public class AVUserManager implements IUserManager{
                 }
             }
         });
+    }
+
+    @Override
+    public void updateUserIcon(String path, ICallBack<String> callBack) {
+        UserAVCloud avCloud = AVUser.getCurrentUser(UserAVCloud.class);
+        avCloud.setLogourl(path);
+        avCloud.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if(e == null){
+
+                }else{
+
+                }
+            }
+        });
+    }
+
+    @Override
+    public void updateUserName(String name, ICallBack<String> callBack) {
+        UserAVCloud avCloud = AVUser.getCurrentUser(UserAVCloud.class);
+        avCloud.setUsername(name);
+        avCloud.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if(e == null){
+
+                }else{
+
+                }
+            }
+        });
+    }
+
+    @Override
+    public void updateUserPSW(String psw, ICallBack<String> callBack) {
+
+    }
+
+    @Override
+    public void updateUserRemark(String remark, ICallBack<String> callBack) {
+
     }
 }

@@ -51,16 +51,13 @@ public class MySelfFragment extends BaseFragment implements View.OnClickListener
         mResetImage.setOnClickListener(this);
         //set the default drawable
         mSettingAccount.setNextPage(AccountSettingActivity.class);
+        ImageLoaderUtil.loadCircle(getContext(), PreferenceUtil.getInstance().getLogoUrl(), R.mipmap.icon_launcher,mHeadImage);
 
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
-        //显示我自己的头像
-        ImageLoaderUtil.loadCircle(getContext(), PreferenceUtil.getInstance().getLogoUrl(), R.mipmap.login_account,mHeadImage);
+    public void doWorkOnResume() {
     }
-
 
     @Override
     public void onClick(View v){
